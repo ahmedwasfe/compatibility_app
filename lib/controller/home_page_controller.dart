@@ -1,19 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomePageController extends GetxController{
-
-
-
-
-
-
+class HomePageController extends GetxController {
   late GlobalKey<FormState> formKey;
   late TextEditingController serachController;
-
-
-
 
   @override
   void onInit() {
@@ -27,9 +17,7 @@ class HomePageController extends GetxController{
   void dispose() {
     formKey.currentState!.dispose();
     serachController.dispose();
-();
+    ();
     super.dispose();
   }
 }
-
-

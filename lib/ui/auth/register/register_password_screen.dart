@@ -92,7 +92,7 @@ class RegisterPasswordScreen extends GetView<RegisterController>  {
                       Container(
                         margin: EdgeInsetsDirectional.only(
                             top: 8.r, start: 14.r, end: 14.r),
-                        child: TextFormField(
+                        child: GetBuilder<RegisterController>(builder: (controller) => TextFormField(
                           textInputAction: TextInputAction.go,
                           controller: controller.passwordController,
                           keyboardType: TextInputType.visiblePassword,
@@ -138,10 +138,7 @@ class RegisterPasswordScreen extends GetView<RegisterController>  {
                               minWidth: 48.w,
                             ),
                           ),
-                          onTap: () => controller.visiblePassword(),
-                          validator: (password) =>
-                              AppHelper.validatePassword(password: password!),
-                        ),
+                        )),
 
                       ),
 
@@ -169,11 +166,11 @@ class RegisterPasswordScreen extends GetView<RegisterController>  {
                               ],
                             ),
                             SizedBox(height: 8.h,),
-                            TextFormField(
+                            GetBuilder<RegisterController>(builder: (controller) => TextFormField(
                               textInputAction: TextInputAction.go,
                               controller: controller.confirmPasswordController,
                               keyboardType: TextInputType.visiblePassword,
-                              obscureText: controller.isVisiblePass,
+                              obscureText: controller.isVisibleConfirmPass,
                               obscuringCharacter: '•',
                               cursorColor: Colors.black,
                               cursorWidth: 1.3.w,
@@ -206,19 +203,16 @@ class RegisterPasswordScreen extends GetView<RegisterController>  {
                                   borderRadius: BorderRadius.circular(8).r,
                                 ),
                                 suffixIcon: InkWell(
-                                  child: Icon(controller.visiblePassIcon,
+                                  child: Icon(controller.visibleConfirmPassIcon,
                                       color: Colors.black),
-                                  onTap: () => controller.visiblePassword(),
+                                  onTap: () => controller.visibleConfirmPassword(),
                                 ),
                                 constraints: BoxConstraints(
                                   maxHeight: 50.h,
                                   minWidth: 48.w,
                                 ),
                               ),
-                              onTap: () => controller.visiblePassword(),
-                              validator: (password) =>
-                                  AppHelper.validatePassword(password: password!),
-                            ),
+                            )),
                           ],
                         ),
 
@@ -254,7 +248,10 @@ class RegisterPasswordScreen extends GetView<RegisterController>  {
                   child: AppWidgets.CustomButton(
                     text: 'next'.tr,
                     click: () {
-                      Get.toNamed(Routes.register_nationality);
+                      if(controller.isValidationPassword(context)){
+                        Get.toNamed(Routes.register_nationality);
+                      }
+
                     },
                     height: 47.h,
                     width: 220.w,

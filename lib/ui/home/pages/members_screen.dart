@@ -77,7 +77,7 @@ class MembersScreen extends StatelessWidget {
                         .toList(),
                     onChanged: (value) {
                       controller.selectedMembersFiltered.value = value!.title;
-                      controller.selectedMembersFiltered = value.isSelected as RxString;
+                      // controller.selectedMembersFiltered = value.isSelected as RxString;
                       print('TYPE: ${controller.selectedMembersFiltered}');
                       controller.update();
                     },

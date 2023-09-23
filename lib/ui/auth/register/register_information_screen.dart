@@ -27,6 +27,7 @@ class RegisterInformationsScreen extends StatelessWidget {
       ),
       body: Form(
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,7 +47,6 @@ class RegisterInformationsScreen extends StatelessWidget {
                     text: 'oh_grant_good_wife',
                     color: AppColors.darkSecondColor),
               ),
-
               Container(
                 padding: EdgeInsetsDirectional.only(top: 35.r),
                 alignment: AlignmentDirectional.center,
@@ -57,13 +57,10 @@ class RegisterInformationsScreen extends StatelessWidget {
                   width: double.infinity,
                 ),
               ),
-
-
-   Container(
+              Container(
      margin: EdgeInsetsDirectional.only(top: 32.r,start: 16,end: 16),
+     padding: EdgeInsetsDirectional.only(bottom: 20.r),
      width:320.r ,
-     height:
-     320.r,
      alignment: AlignmentDirectional.center,
      decoration: BoxDecoration(
          color: AppColors.lightBorder,
@@ -73,77 +70,75 @@ class RegisterInformationsScreen extends StatelessWidget {
        crossAxisAlignment: CrossAxisAlignment.start,
        mainAxisAlignment: MainAxisAlignment.start,
        children: [
-         SingleChildScrollView(
-           child: Column(
-             mainAxisAlignment: MainAxisAlignment.start,
-             crossAxisAlignment: CrossAxisAlignment.start,
-             children: [
-               Container(
-                 margin:
-                 EdgeInsetsDirectional.only(top: 15.r, start: 16.r),
-                 child: Row(
-                   crossAxisAlignment: CrossAxisAlignment.start,
-                   mainAxisAlignment: MainAxisAlignment.start,
-                   children: [
-                     Container(
-                       alignment: AlignmentDirectional.topStart,
-                       child: AppText.medium(
-                           text: 'full_name', fontWeight: FontWeight.w500),
-                     ),
-                     Container(
-                         padding: EdgeInsetsDirectional.only(start: 4.r),
-                         child: AppText.medium(
-                             text: '*', color: Colors.red, fontSize: 18)),
-                   ],
-                 ),
-               ),
-               Container(
-                 margin: EdgeInsetsDirectional.only(
-                     top: 8.r, start: 14.r, end: 14.r),
-                 child: TextFormField(
-                   textInputAction: TextInputAction.go,
-                   controller: controller.userNameController,
-                   keyboardType: TextInputType.text,
-                   cursorColor: Colors.black,
-                   cursorWidth: 1.3.w,
-                   cursorRadius: const Radius.circular(10).r,
-                   enabled: true,
-                   textAlignVertical: AppHelper.getTextAlignVertical(),
-                   style: TextStyle(
-                     fontWeight: FontWeight.w400,
-                     fontSize: 16.sp,
-                     color: Colors.black,
+         Column(
+           mainAxisAlignment: MainAxisAlignment.start,
+           crossAxisAlignment: CrossAxisAlignment.start,
+           children: [
+             Container(
+               margin:
+               EdgeInsetsDirectional.only(top: 15.r, start: 16.r),
+               child: Row(
+                 crossAxisAlignment: CrossAxisAlignment.start,
+                 mainAxisAlignment: MainAxisAlignment.start,
+                 children: [
+                   Container(
+                     alignment: AlignmentDirectional.topStart,
+                     child: AppText.medium(
+                         text: 'full_name', fontWeight: FontWeight.w500),
                    ),
-                   decoration: InputDecoration(
-                       hintText: 'enter_full_name'.tr,
-                       hintStyle: TextStyle(
-                           color: AppColors.grayColor,
-                           fontSize: 14.h,
-                           fontWeight: FontWeight.w400),
-                       // fillColor:  AppColors.colorGray,
-                       fillColor: Colors.white,
-                       filled: true,
-                       helperMaxLines: 2,
-                       enabledBorder: OutlineInputBorder(
-                         borderSide: BorderSide(
-                             color: AppColors.lightGray8, width: 0.3.w),
-                         borderRadius: BorderRadius.circular(8).r,
-                       ),
-                       focusedBorder: OutlineInputBorder(
-                         borderSide: BorderSide(
-                             color: Colors.black, width: 1.w),
-                         borderRadius: BorderRadius.circular(8).r,
-                       ),
-                       constraints: BoxConstraints(
-                         maxHeight: 50.h,
-                         minWidth: 48.w,
-                       )),
-                   validator: (name) =>
-                       AppHelper.validateUserName(name: name!),
-                 ),
+                   Container(
+                       padding: EdgeInsetsDirectional.only(start: 4.r),
+                       child: AppText.medium(
+                           text: '*', color: Colors.red, fontSize: 18)),
+                 ],
                ),
-             ],
-           ),
+             ),
+             Container(
+               margin: EdgeInsetsDirectional.only(
+                   top: 8.r, start: 14.r, end: 14.r),
+               child: TextFormField(
+                 textInputAction: TextInputAction.go,
+                 controller: controller.nameController,
+                 keyboardType: TextInputType.text,
+                 cursorColor: Colors.black,
+                 cursorWidth: 1.3.w,
+                 cursorRadius: const Radius.circular(10).r,
+                 enabled: true,
+                 textAlignVertical: AppHelper.getTextAlignVertical(),
+                 style: TextStyle(
+                   fontWeight: FontWeight.w400,
+                   fontSize: 16.sp,
+                   color: Colors.black,
+                 ),
+                 decoration: InputDecoration(
+                     hintText: 'enter_full_name'.tr,
+                     hintStyle: TextStyle(
+                         color: AppColors.grayColor,
+                         fontSize: 14.h,
+                         fontWeight: FontWeight.w400),
+                     // fillColor:  AppColors.colorGray,
+                     fillColor: Colors.white,
+                     filled: true,
+                     helperMaxLines: 2,
+                     enabledBorder: OutlineInputBorder(
+                       borderSide: BorderSide(
+                           color: AppColors.lightGray8, width: 0.3.w),
+                       borderRadius: BorderRadius.circular(8).r,
+                     ),
+                     focusedBorder: OutlineInputBorder(
+                       borderSide: BorderSide(
+                           color: Colors.black, width: 1.w),
+                       borderRadius: BorderRadius.circular(8).r,
+                     ),
+                     constraints: BoxConstraints(
+                       maxHeight: 50.h,
+                       minWidth: 48.w,
+                     )),
+                 validator: (name) =>
+                     AppHelper.validateUserName(name: name!),
+               ),
+             ),
+           ],
          ),
 
          SingleChildScrollView(
@@ -308,7 +303,10 @@ class RegisterInformationsScreen extends StatelessWidget {
                   padding: EdgeInsetsDirectional.only(top: 14.r,bottom: 20.r),
                   alignment: Alignment.center,
                   child: AppWidgets.CustomButton(text: 'next'.tr, click:(){
-                    Get.toNamed(Routes.register_conditions);
+                    if(controller.isValidationPersonalInfo(context)){
+                      Get.toNamed(Routes.register_conditions);
+                    }
+
                   },
                     height: 47.h,width: 220.w,radius: 6.r,
                   )),

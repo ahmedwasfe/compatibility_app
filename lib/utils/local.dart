@@ -40,17 +40,21 @@ class AppTranslations implements Translations {
           'length': 'الطول (سم)',
           'skin': 'لون البشرة',
           'physique': 'بنية الجسم',
-          'choose_weight': 'اختر وزنك',
-          'choose_height': 'اختر طولك',
-          'Choose_tone': 'اختر لون البشرة',
+          'choose_weight': 'أدخل وزنك',
+          'choose_height': 'أدخل طولك',
+          'choose_tone': 'اختر لون البشرة',
           'choose_structure': 'اختر بنية الجسم',
           'religious_commitment': 'الإلتزام الديني',
           'choose_religious_commitment': 'اختر إلتزامك الديني',
           'prayer': 'الصلاة',
           'choose_prayer_range': 'اختر مدى صلاتك',
           'smoking': 'التدخين',
+          'smoking_': 'مدخن',
+          'non_smoking': 'غير مدخن',
           'choose_whether_smoke_not': 'اختر هل أنت مدخن ام لا',
           'beard': 'اللحية',
+          'beard_': 'ملتحي',
+          'non_beard': 'غير ملتحي',
           'choose_whether_bearded_not': 'اختر هل أنت ملتحى ام لا',
           'educational_qualification': 'المؤهل التعليمي',
           'choose_educational_qualification': 'المؤهل التعليمي',
@@ -181,6 +185,8 @@ class AppTranslations implements Translations {
           'ignore':'من أضافني لقائمة التجاهل',
           'deleted_ignore_list':'من حذفني من قائمة تجاهله',
           'select_country':'اختر الدولة',
+          'select_nationality':'إختر الجنسية',
+          'select_city':'إختر المدينة',
           'photo':'من أعطاني صلاحية بمشاهدة\n صورته',
           'success_story':'قصة نجاح',
           'god_together_goodness':'بَارَكَ اللَّهُ لَكَ، وبَارَكَ عَلَيْكَ، وجَمَعَ بَيْنَكُمَا فِي خَيْرٍ',
@@ -199,9 +205,15 @@ class AppTranslations implements Translations {
           'colse':'إلغاء ',
           'all_notifications_deleted':'تم  حذف جميع الإشعارات بنجاح',
           'receive':'للحصول على الخصم الخاص بك يرجى تسجيل\n الدخول للتطبيق',
-
-
-
+          'appear':'ظاهر ',
+          'disappear':'مخفي ',
+          'select_account_status': 'حدد حالة الحساب',
+          'select_marriage_type': 'حدد نوع الزواج',
+          'enter_age': 'أدخل العمر',
+          'enter_children': 'أدخل عدد الأطفال',
+          'password_must_be_more_than_6': 'كلمة المرور يجب أن تكون أكثر من ستة أحرف',
+          'tow_password_not_match': 'كلمتا المرور غير متطابقتان',
+          'enter_description': 'أدخل الوصف',
 
         },
         "en": {
@@ -240,15 +252,17 @@ class AppTranslations implements Translations {
           'length': 'Length (cm)',
           'skin': 'Skin colour',
           'physique': 'Physique',
-          'choose_weight': 'Choose your weight',
-          'choose_height': 'Choose your height',
-          'Choose_tone': 'Choose skin tone',
+          'choose_weight': 'Enter weight',
+          'choose_height': 'Enter your height',
+          'choose_tone': 'Choose skin tone',
           'choose_structure': 'Choose body structure',
           'religious_commitment': 'Religious commitment',
           'choose_religious_commitment': 'Choose your religious commitment',
           'prayer': 'Prayer',
           'choose_prayer_range': 'Choose your prayer range',
           'smoking': 'Smoking',
+          'smoking_': 'Smoking',
+          'non_smoking': 'Non-Smoking',
           'choose_whether_smoke_not': 'Choose whether you smoke or not',
           'beard': 'Beard',
           'choose_whether_bearded_not': 'Choose whether you are bearded or not',
@@ -381,6 +395,8 @@ class AppTranslations implements Translations {
           'deleted_ignore_list':'Deleted Ignore List',
           'photo':'gave permission to view\n his photo',
           'select_country':'Select country',
+          'select_nationality':'Select Nationality  ',
+          'select_city':'Select city',
           'success_story':'Success Story',
           'congratu_finding_half':'We congratulate all the participants who have been\n                        blessed by God with finding their other half',
           'god_together_goodness':'May God bless you, and bless you, and bring\n                       you together in goodness.',
@@ -397,126 +413,16 @@ class AppTranslations implements Translations {
           'no':'No',
           'all_notifications_deleted':'All notifications have been successfully deleted',
           'receive':'To receive your discount please log \n in to the application',
-          'colse':'Colse ',
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+          'colse':'Colse',
+          'appear':'Appear ',
+          'disappear':'Disappear',
+          'select_account_status':'Select account status',
+          'select_marriage_type': 'Select marriage type',
+          'enter_age': 'Enter age',
+          'enter_children': 'Enter children',
+          'password_must_be_more_than_6': 'Password must be more than six characters',
+          'tow_password_not_match': 'The two passwords do not match',
+          'enter_description': 'Enter description',
         },
       };
 }

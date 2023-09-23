@@ -12,7 +12,7 @@ import 'package:compatibility_app/ui/auth/register/register_screen.dart';
 import 'package:compatibility_app/ui/auth/register/register_password_screen.dart';
 import 'package:compatibility_app/ui/auth/register/register_self_screen.dart';
 import 'package:compatibility_app/ui/auth/register/register_status_screen.dart';
-import 'package:compatibility_app/ui/auth/register/register_study_screen.dart';
+import 'package:compatibility_app/ui/auth/register/register_education_screen.dart';
 import 'package:compatibility_app/ui/auth/register/wifes_specifications_screen.dart';
 import 'package:compatibility_app/ui/boarding_screen.dart';
 import 'package:compatibility_app/ui/home/home_screen.dart';
@@ -44,7 +44,7 @@ class AppRoutes {
   static final routesPages = [
 
 
-     GetPage(name: Routes.splash, page: () => SplashScreen()),
+    GetPage(name: Routes.splash, page: () => SplashScreen()),
     GetPage(name: Routes.boarding, page: () => BoardingScreen()),
     GetPage(name: Routes.welcom, page: () => WelcomScreen()),
     GetPage(name: Routes.login, page: () => LoginScreen(), binding: LoginBinging()),
@@ -56,7 +56,7 @@ class AppRoutes {
     GetPage(name: Routes.register_status, page: () => RegisterStatusScreen()),
     GetPage(name: Routes.register_appearance, page: () => RegisterAppearanceScreen()),
     GetPage(name: Routes.register_debt, page: () => RegisterDebtScreen()),
-    GetPage(name: Routes.register_Study, page: () => RegisterStudyScreen()),
+    GetPage(name: Routes.register_Study, page: () => RegisterEducationScreen()),
     GetPage(name: Routes.register_Wifes, page: () => WifesSpecificationScreen()),
     GetPage(name: Routes.register_self, page: () => RegisterSelfScreen()),
     GetPage(name: Routes.register_Informations, page: () => RegisterInformationsScreen()),

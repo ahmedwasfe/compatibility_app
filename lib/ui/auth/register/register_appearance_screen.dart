@@ -1,10 +1,10 @@
 //شاشة المظهر
 import 'package:compatibility_app/controller/register_controller.dart';
-import 'package:compatibility_app/model/auth/register/higth_type.dart';
-import 'package:compatibility_app/model/auth/register/kg_type.dart';
-import 'package:compatibility_app/model/auth/register/structure_type.dart';
+import 'package:compatibility_app/model/settings/physique.dart';
+import 'package:compatibility_app/model/settings/skin.dart';
 import 'package:compatibility_app/routes/routes.dart';
 import 'package:compatibility_app/utils/app_color.dart';
+import 'package:compatibility_app/utils/app_helper.dart';
 import 'package:compatibility_app/utils/app_text.dart';
 import 'package:compatibility_app/utils/components.dart';
 import 'package:compatibility_app/utils/constants.dart';
@@ -14,7 +14,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-import '../../../model/auth/register/age_type.dart';
 class RegisterAppearanceScreen extends StatelessWidget {
   RegisterController controller=Get.put(RegisterController());
 
@@ -34,6 +33,7 @@ class RegisterAppearanceScreen extends StatelessWidget {
 
       body: Form(
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -67,384 +67,336 @@ class RegisterAppearanceScreen extends StatelessWidget {
               Container(
                 margin: EdgeInsetsDirectional.only(
                     top: 36.r, start: 16.r, end: 16.r),
+                padding: EdgeInsetsDirectional.only(bottom: 20.r),
                 width: double.infinity,
-                height: 410.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.r).r,
                   color: AppColors.lightGray6,
                 ),
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      //////
-                      Container(
-                        margin:
-                        EdgeInsetsDirectional.only(top: 12.r, start: 14.r),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              alignment: AlignmentDirectional.topStart,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //////
+                    Container(
+                      margin:
+                      EdgeInsetsDirectional.only(top: 12.r, start: 14.r),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            alignment: AlignmentDirectional.topStart,
+                            child: AppText.medium(
+                                text: 'kg', fontWeight: FontWeight.w500),
+                          ),
+                          Container(
+                              padding: EdgeInsetsDirectional.only(start: 4.r),
                               child: AppText.medium(
-                                  text: 'kg', fontWeight: FontWeight.w500),
-                            ),
-                            Container(
-                                padding: EdgeInsetsDirectional.only(start: 4.r),
-                                child: AppText.medium(
-                                    text: '*', color: Colors.red, fontSize: 18)),
-                          ],
+                                  text: '*', color: Colors.red, fontSize: 18)),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsetsDirectional.only(start: 14.r, end: 14.r),
+                      child: Container(
+                        margin: EdgeInsetsDirectional.only(
+                            top: 8.r),
+                        child: TextFormField(
+                          textInputAction: TextInputAction.go,
+                          controller: controller.weightController,
+                          keyboardType: TextInputType.number,
+                          cursorColor: Colors.black,
+                          cursorWidth: 1.3.w,
+                          cursorRadius: const Radius.circular(10).r,
+                          enabled: true,
+                          textAlignVertical: AppHelper.getTextAlignVertical(),
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16.sp,
+                            color: Colors.black,
+                          ),
+                          decoration: InputDecoration(
+                              hintText: 'choose_weight'.tr,
+                              hintStyle: TextStyle(
+                                  color: AppColors.grayColor,
+                                  fontSize: 14.h,
+                                  fontWeight: FontWeight.w400),
+                              // fillColor:  AppColors.colorGray,
+                              fillColor: Colors.white,
+                              filled: true,
+                              helperMaxLines: 2,
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: AppColors.lightGray8, width: 0.3.w),
+                                borderRadius: BorderRadius.circular(8).r,
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.black, width: 1.w),
+                                borderRadius: BorderRadius.circular(8).r,
+                              ),
+                              constraints: BoxConstraints(
+                                maxHeight: 50.h,
+                                minWidth: 48.w,
+                              )),
                         ),
                       ),
-                      GetBuilder<RegisterController>(
-                          builder: (controller) => Container(
-                            width: double.infinity,
-                            height: 58.h,
-                            padding: EdgeInsetsDirectional.only(start: 14,end: 14,top: 8.r),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton2(
-                                isExpanded: true,
-                                hint: Obx(() => AppText.medium(
-                                  text: controller.selectedKgType_.value.isNotEmpty
-                                      ? controller.selectedKgType_.value.tr
-                                      : 'choose_weight'.tr,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.lightGray3,
-                                )),
-                                items: controller.listKgType
-                                    .map((item) =>
-                                    DropdownMenuItem<KgType>(
-                                      value: item,
-                                      child: AppText.medium(text: item.name),
-                                    ))
-                                    .toList(),
-                                onChanged: (value) {
-                                  controller.selectedKgType_.value = value!.name;
-                                  controller.selectedKgType_ = value.value as RxString;
-                                  print('TYPE: ${controller.selectedKgType_}');
-                                  controller.update();
-                                },
-                                icon: const Icon(
-                                  Icons.keyboard_arrow_down_sharp,
-                                  size: 26,
-                                  color:AppColors.lightGray3,
-                                ),
-                                iconSize: 14.sp,
-                                iconEnabledColor: Colors.white,
-                                iconDisabledColor: Colors.white,
-                                buttonHeight: 50.h,
-                                buttonWidth: 40.w,
-                                buttonPadding: const EdgeInsets.only(
-                                    left: 14, right: 14),
-                                buttonDecoration: BoxDecoration(
-                                    borderRadius:
-                                    BorderRadius.circular(8.r),
-                                    border: Border.all(
+                    ),
 
-
-
-
-                                        color:
-                                        AppColors.lightGray8,
-                                        width: 0.3.w
-                                    ),
-                                    color: Colors.white),
-                                itemHeight: 60,
-                                dropdownMaxHeight: 180,
-                                dropdownWidth: 210,
-                                dropdownDecoration: BoxDecoration(
-                                  borderRadius:
-                                  BorderRadius.circular(8),
-                                  color: Colors.white,
-                                ),
-                                dropdownElevation: 8,
-                                scrollbarThickness: 6,
-                                scrollbarAlwaysShow: true,
-                                offset: const Offset(10, 0),
-                              ),
-                            ),
-                          )),
-
-                      ///////
-                      Container(
-                        margin:
-                        EdgeInsetsDirectional.only(top: 12.r, start: 14.r),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              alignment: AlignmentDirectional.topStart,
+                    ///////
+                    Container(
+                      margin:
+                      EdgeInsetsDirectional.only(top: 12.r, start: 14.r),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            alignment: AlignmentDirectional.topStart,
+                            child: AppText.medium(
+                                text: 'length', fontWeight: FontWeight.w500),
+                          ),
+                          Container(
+                              padding: EdgeInsetsDirectional.only(start: 4.r),
                               child: AppText.medium(
-                                  text: 'length', fontWeight: FontWeight.w500),
-                            ),
-                            Container(
-                                padding: EdgeInsetsDirectional.only(start: 4.r),
-                                child: AppText.medium(
-                                    text: '*', color: Colors.red, fontSize: 18)),
-                          ],
+                                  text: '*', color: Colors.red, fontSize: 18)),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsetsDirectional.only(start: 14.r, end: 14.r),
+                      child: Container(
+                        margin: EdgeInsetsDirectional.only(
+                            top: 8.r),
+                        child: TextFormField(
+                          textInputAction: TextInputAction.go,
+                          controller: controller.heightController,
+                          keyboardType: TextInputType.number,
+                          cursorColor: Colors.black,
+                          cursorWidth: 1.3.w,
+                          cursorRadius: const Radius.circular(10).r,
+                          enabled: true,
+                          textAlignVertical: AppHelper.getTextAlignVertical(),
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16.sp,
+                            color: Colors.black,
+                          ),
+                          decoration: InputDecoration(
+                              hintText: 'choose_weight'.tr,
+                              hintStyle: TextStyle(
+                                  color: AppColors.grayColor,
+                                  fontSize: 14.h,
+                                  fontWeight: FontWeight.w400),
+                              // fillColor:  AppColors.colorGray,
+                              fillColor: Colors.white,
+                              filled: true,
+                              helperMaxLines: 2,
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: AppColors.lightGray8, width: 0.3.w),
+                                borderRadius: BorderRadius.circular(8).r,
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.black, width: 1.w),
+                                borderRadius: BorderRadius.circular(8).r,
+                              ),
+                              constraints: BoxConstraints(
+                                maxHeight: 50.h,
+                                minWidth: 48.w,
+                              )),
                         ),
                       ),
-                      GetBuilder<RegisterController>(
-                          builder: (controller) => Container(
-                            width: double.infinity,
-                            height: 58.h,
-                            padding: EdgeInsetsDirectional.only(start: 14,end: 14,top: 8.r),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton2(
-                                isExpanded: true,
-                                hint: Obx(() => AppText.medium(
-                                  text: controller.selectedhightType_.value.isNotEmpty
-                                      ? controller.selectedhightType_.value.tr
-                                      : 'choose_height'.tr,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.lightGray3,
-                                )),
-                                items: controller.listHigthType
-                                    .map((item) =>
-                                    DropdownMenuItem<HigthType>(
-                                      value: item,
-                                      child: AppText.medium(text: item.name),
-                                    ))
-                                    .toList(),
-                                onChanged: (value) {
-                                  controller.selectedhightType_.value = value!.name;
-                                  controller.selectedhightType_ = value.value as RxString;
-                                  print('TYPE: ${controller.selectedhightType_}');
-                                  controller.update();
-                                },
-                                icon: const Icon(
-                                  Icons.keyboard_arrow_down_sharp,
-                                  size: 26,
-                                  color:AppColors.lightGray3,
-                                ),
-                                iconSize: 14.sp,
-                                iconEnabledColor: Colors.white,
-                                iconDisabledColor: Colors.white,
-                                buttonHeight: 50.h,
-                                buttonWidth: 40.w,
-                                buttonPadding: const EdgeInsets.only(
-                                    left: 14, right: 14),
-                                buttonDecoration: BoxDecoration(
-                                    borderRadius:
-                                    BorderRadius.circular(8.r),
-                                    border: Border.all(
+                    ),
 
 
 
 
-                                        color:
-                                        AppColors.lightGray8,
-                                        width: 0.3.w
-                                    ),
-                                    color: Colors.white),
-                                itemHeight: 60,
-                                dropdownMaxHeight: 180,
-                                dropdownWidth: 210,
-                                dropdownDecoration: BoxDecoration(
-                                  borderRadius:
-                                  BorderRadius.circular(8),
-                                  color: Colors.white,
-                                ),
-                                dropdownElevation: 8,
-                                scrollbarThickness: 6,
-                                scrollbarAlwaysShow: true,
-                                offset: const Offset(10, 0),
-                              ),
-                            ),
-                          )),
-
-
-
-
-                      ///////
-                      Container(
-                        margin:
-                        EdgeInsetsDirectional.only(top: 12.r, start: 14.r),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              alignment: AlignmentDirectional.topStart,
+                    ///////
+                    Container(
+                      margin:
+                      EdgeInsetsDirectional.only(top: 12.r, start: 14.r),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            alignment: AlignmentDirectional.topStart,
+                            child: AppText.medium(
+                                text: 'skin', fontWeight: FontWeight.w500),
+                          ),
+                          Container(
+                              padding: EdgeInsetsDirectional.only(start: 4.r),
                               child: AppText.medium(
-                                  text: 'skin', fontWeight: FontWeight.w500),
-                            ),
-                            Container(
-                                padding: EdgeInsetsDirectional.only(start: 4.r),
-                                child: AppText.medium(
-                                    text: '*', color: Colors.red, fontSize: 18)),
-                          ],
-                        ),
+                                  text: '*', color: Colors.red, fontSize: 18)),
+                        ],
                       ),
-                      GetBuilder<RegisterController>(
-                          builder: (controller) => Container(
-                            width: double.infinity,
-                            height: 58.h,
-                            padding: EdgeInsetsDirectional.only(start: 14,end: 14,top: 8.r),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton2(
-                                isExpanded: true,
-                                hint: Obx(() => AppText.medium(
-                                  text: controller.selectedAgeType_.value.isNotEmpty
-                                      ? controller.selectedAgeType_.value.tr
-                                      : 'Choose_tone'.tr,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.lightGray3,
-                                )),
-                                items: controller.listAgeType
-                                    .map((item) =>
-                                    DropdownMenuItem<AgeType>(
-                                      value: item,
-                                      child: AppText.medium(text: item.name),
-                                    ))
-                                    .toList(),
-                                onChanged: (value) {
-                                  controller.selectedAgeType_.value = value!.name;
-                                  controller.selectedAgeType_ = value.value as RxString;
-                                  print('TYPE: ${controller.selectedAgeType_}');
-                                  controller.update();
-                                },
-                                icon: const Icon(
-                                  Icons.keyboard_arrow_down_sharp,
-                                  size: 26,
-                                  color:AppColors.lightGray3,
-                                ),
-                                iconSize: 14.sp,
-                                iconEnabledColor: Colors.white,
-                                iconDisabledColor: Colors.white,
-                                buttonHeight: 50.h,
-                                buttonWidth: 40.w,
-                                buttonPadding: const EdgeInsets.only(
-                                    left: 14, right: 14),
-                                buttonDecoration: BoxDecoration(
+                    ),
+                    FutureBuilder(
+                        future: controller.getSkin(),
+                        builder: (_, snapshot) => GetBuilder<RegisterController>(
+                            builder: (controller) => Container(
+                              width: double.infinity,
+                              height: 58.h,
+                              padding: EdgeInsetsDirectional.only(start: 14,end: 14,top: 8.r),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton2(
+                                  isExpanded: true,
+                                  hint: Obx(() => AppText.medium(
+                                    text: controller.selectedSkinType_.value.isNotEmpty
+                                        ? controller.selectedSkinType_.value.tr
+                                        : 'choose_tone'.tr,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColors.lightGray3,
+                                  )),
+                                  items: controller.listSkin
+                                      .map((item) =>
+                                      DropdownMenuItem<SkinData>(
+                                        value: item,
+                                        child: AppText.medium(text: item.name!),
+                                      ))
+                                      .toList(),
+                                  onChanged: (value) {
+                                    controller.selectedSkinType_.value = value!.name!;
+                                    controller.selectedSkin = value.id!;
+                                    print('TYPE: ${controller.selectedSkinType_}');
+                                    controller.update();
+                                  },
+                                  icon: const Icon(
+                                    Icons.keyboard_arrow_down_sharp,
+                                    size: 26,
+                                    color:AppColors.lightGray3,
+                                  ),
+                                  iconSize: 14.sp,
+                                  iconEnabledColor: Colors.white,
+                                  iconDisabledColor: Colors.white,
+                                  buttonHeight: 50.h,
+                                  buttonWidth: 40.w,
+                                  buttonPadding: const EdgeInsets.only(
+                                      left: 14, right: 14),
+                                  buttonDecoration: BoxDecoration(
+                                      borderRadius:
+                                      BorderRadius.circular(8.r),
+                                      border: Border.all(
+                                          color:
+                                          AppColors.lightGray8,
+                                          width: 0.3.w
+                                      ),
+                                      color: Colors.white),
+                                  itemHeight: 60,
+                                  dropdownMaxHeight: 180,
+                                  dropdownWidth: 210,
+                                  dropdownDecoration: BoxDecoration(
                                     borderRadius:
-                                    BorderRadius.circular(8.r),
-                                    border: Border.all(
-
-
-
-
-                                        color:
-                                        AppColors.lightGray8,
-                                        width: 0.3.w
-                                    ),
-                                    color: Colors.white),
-                                itemHeight: 60,
-                                dropdownMaxHeight: 180,
-                                dropdownWidth: 210,
-                                dropdownDecoration: BoxDecoration(
-                                  borderRadius:
-                                  BorderRadius.circular(8),
-                                  color: Colors.white,
+                                    BorderRadius.circular(8),
+                                    color: Colors.white,
+                                  ),
+                                  dropdownElevation: 8,
+                                  scrollbarThickness: 6,
+                                  scrollbarAlwaysShow: true,
+                                  offset: const Offset(10, 0),
                                 ),
-                                dropdownElevation: 8,
-                                scrollbarThickness: 6,
-                                scrollbarAlwaysShow: true,
-                                offset: const Offset(10, 0),
                               ),
-                            ),
-                          )),
+                            ))),
 
-
-
-                      ///////
-                      Container(
-                        margin:
-                        EdgeInsetsDirectional.only(top: 12.r, start: 14.r),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              alignment: AlignmentDirectional.topStart,
+                    ///////
+                    Container(
+                      margin:
+                      EdgeInsetsDirectional.only(top: 12.r, start: 14.r),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            alignment: AlignmentDirectional.topStart,
+                            child: AppText.medium(
+                                text: 'physique', fontWeight: FontWeight.w500),
+                          ),
+                          Container(
+                              padding: EdgeInsetsDirectional.only(start: 4.r),
                               child: AppText.medium(
-                                  text: 'physique', fontWeight: FontWeight.w500),
-                            ),
-                            Container(
-                                padding: EdgeInsetsDirectional.only(start: 4.r),
-                                child: AppText.medium(
-                                    text: '*', color: Colors.red, fontSize: 18)),
-                          ],
-                        ),
+                                  text: '*', color: Colors.red, fontSize: 18)),
+                        ],
                       ),
-                      GetBuilder<RegisterController>(
-                          builder: (controller) => Container(
-                            width: double.infinity,
-                            height: 58.h,
-                            padding: EdgeInsetsDirectional.only(start: 14,end: 14,top: 8.r),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton2(
-                                isExpanded: true,
-                                hint: Obx(() => AppText.medium(
-                                  text: controller.selectedStructureType_.value.isNotEmpty
-                                      ? controller.selectedStructureType_.value.tr
-                                      : 'choose_structure'.tr,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.lightGray3,
-                                )),
-                                items: controller.listStructureType
-                                    .map((item) =>
-                                    DropdownMenuItem<StructureType>(
-                                      value: item,
-                                      child: AppText.medium(text: item.name),
-                                    ))
-                                    .toList(),
-                                onChanged: (value) {
-                                  controller.selectedStructureType_.value = value!.name;
-                                  controller.selectedStructureType_ = value.value as RxString;
-                                  print('TYPE: ${controller.selectedStructureType_}');
-                                  controller.update();
-                                },
-                                icon: const Icon(
-                                  Icons.keyboard_arrow_down_sharp,
-                                  size: 26,
-                                  color:AppColors.lightGray3,
-                                ),
-                                iconSize: 14.sp,
-                                iconEnabledColor: Colors.white,
-                                iconDisabledColor: Colors.white,
-                                buttonHeight: 50.h,
-                                buttonWidth: 40.w,
-                                buttonPadding: const EdgeInsets.only(
-                                    left: 14, right: 14),
-                                buttonDecoration: BoxDecoration(
+                    ),
+                    FutureBuilder(
+                        future: controller.getPhysique(),
+                        builder: (_, snapshot) => GetBuilder<RegisterController>(
+                            builder: (controller) => Container(
+                              width: double.infinity,
+                              height: 58.h,
+                              padding: EdgeInsetsDirectional.only(start: 14,end: 14,top: 8.r),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton2(
+                                  isExpanded: true,
+                                  hint: Obx(() => AppText.medium(
+                                    text: controller.selectedStructureType_.value.isNotEmpty
+                                        ? controller.selectedStructureType_.value.tr
+                                        : 'choose_structure'.tr,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColors.lightGray3,
+                                  )),
+                                  items: controller.listPhysique
+                                      .map((item) =>
+                                      DropdownMenuItem<PhysiqueData>(
+                                        value: item,
+                                        child: AppText.medium(text: item.name!),
+                                      ))
+                                      .toList(),
+                                  onChanged: (value) {
+                                    controller.selectedStructureType_.value = value!.name!;
+                                    controller.selectedBody = value.id!;
+                                    print('TYPE: ${controller.selectedBody}');
+                                    controller.update();
+                                  },
+                                  icon: const Icon(
+                                    Icons.keyboard_arrow_down_sharp,
+                                    size: 26,
+                                    color:AppColors.lightGray3,
+                                  ),
+                                  iconSize: 14.sp,
+                                  iconEnabledColor: Colors.white,
+                                  iconDisabledColor: Colors.white,
+                                  buttonHeight: 50.h,
+                                  buttonWidth: 40.w,
+                                  buttonPadding: const EdgeInsets.only(
+                                      left: 14, right: 14),
+                                  buttonDecoration: BoxDecoration(
+                                      borderRadius:
+                                      BorderRadius.circular(8.r),
+                                      border: Border.all(
+
+
+
+
+                                          color:
+                                          AppColors.lightGray8,
+                                          width: 0.3.w
+                                      ),
+                                      color: Colors.white),
+                                  itemHeight: 60,
+                                  dropdownMaxHeight: 180,
+                                  dropdownWidth: 210,
+                                  dropdownDecoration: BoxDecoration(
                                     borderRadius:
-                                    BorderRadius.circular(8.r),
-                                    border: Border.all(
-
-
-
-
-                                        color:
-                                        AppColors.lightGray8,
-                                        width: 0.3.w
-                                    ),
-                                    color: Colors.white),
-                                itemHeight: 60,
-                                dropdownMaxHeight: 180,
-                                dropdownWidth: 210,
-                                dropdownDecoration: BoxDecoration(
-                                  borderRadius:
-                                  BorderRadius.circular(8),
-                                  color: Colors.white,
+                                    BorderRadius.circular(8),
+                                    color: Colors.white,
+                                  ),
+                                  dropdownElevation: 8,
+                                  scrollbarThickness: 6,
+                                  scrollbarAlwaysShow: true,
+                                  offset: const Offset(10, 0),
                                 ),
-                                dropdownElevation: 8,
-                                scrollbarThickness: 6,
-                                scrollbarAlwaysShow: true,
-                                offset: const Offset(10, 0),
                               ),
-                            ),
-                          )),
+                            ))),
 
-                    ],
-                  ),
+                  ],
                 ),
               ),
               Center(
@@ -458,7 +410,9 @@ class RegisterAppearanceScreen extends StatelessWidget {
                   child: AppWidgets.CustomButton(
                     text: 'next'.tr,
                     click: () {
-                      Get.toNamed(Routes.register_debt);
+                      if(controller.isValidationAppearance(context)){
+                        Get.toNamed(Routes.register_debt);
+                      }
                     },
                     height: 47.h,
                     width: 220.w,

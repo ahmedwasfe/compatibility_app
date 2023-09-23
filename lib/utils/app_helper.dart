@@ -280,15 +280,17 @@ class AppHelper {
       content: InkWell(
         onTap: ()=> Get.toNamed(Routes.home),
         child: Container(
-            width: 350.w,
-            height: 260.h,
+          width: double.infinity,
+          height: 320.h,
           clipBehavior: Clip.antiAlias,
-          padding: const EdgeInsetsDirectional.only(top: 10),
+          margin: EdgeInsets.zero,
+          padding: EdgeInsets.zero,
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12)
           ),
           child:Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Container(
                 margin: EdgeInsetsDirectional.only(start: 10.r, end: 10.r),
@@ -300,7 +302,7 @@ class AppHelper {
                   textAlign: TextAlign.center,
                 ),
               ),
-        Container(
+              Container(
           margin: EdgeInsetsDirectional.only(top: 20.r),
           alignment: AlignmentDirectional.center,
           child: RatingBar.builder(
@@ -309,11 +311,10 @@ class AppHelper {
             direction: Axis.horizontal,
             allowHalfRating: true,
             itemCount: 5,
-            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-            itemBuilder: (context, _) => Icon(
+            itemBuilder: (context, _) => const Icon(
               Icons.star,
               color: Colors.amber,
-              size: 15,
+              size: 12,
             ),
             onRatingUpdate: (rating) {
               print(rating);
@@ -675,7 +676,7 @@ children: [
 
                     margin: EdgeInsetsDirectional.only(end: 10.r,top: 10.r),
                     alignment: AlignmentDirectional.topEnd,
-                    child: Icon(Icons.delete_forever,color: AppColors.lightgray16,),
+                    child: const Icon(Icons.delete_forever,color: AppColors.lightgray16,),
                   ),
                 ),
                 Container(
@@ -693,7 +694,7 @@ children: [
                     textAlign: TextAlign.center,
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -787,13 +788,13 @@ children: [
         builder: (BuildContext context) {
           return Container(
             height: 400.h,
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Column(
               children: [
                 Container(
                   height: 4,
                   width: 50,
-                  margin: EdgeInsetsDirectional.only(top: 10, bottom: 10),
+                  margin: const EdgeInsetsDirectional.only(top: 10, bottom: 10),
                   decoration: BoxDecoration(
                       color: AppColors.colorgreenl,
                       borderRadius: BorderRadius.circular(20)),
@@ -813,9 +814,9 @@ children: [
                     textAlign: TextAlign.center,
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Container(
-                    margin: EdgeInsetsDirectional.only(top: 10, start: 10, end: 10),
+                    margin: const EdgeInsetsDirectional.only(top: 10, start: 10, end: 10),
                     width: double.infinity,
                     child: AppWidgets.CustomButton(
                         radius: 8,

@@ -17,8 +17,7 @@ class TawafuqBlogScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 50,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         elevation: 0,
         title: AppText.medium(
             text: 'tawafuq_blog',
@@ -27,30 +26,33 @@ class TawafuqBlogScreen extends StatelessWidget {
             color: Colors.black),
         leading: IconButton(
           onPressed: () {},
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
         ),
         actions: [
-          Stack(
-            children: [
-              InkWell(
-                onTap: () {},
-                child: SvgPicture.asset(
-                  '${Const.images}notfiactions.svg',
-                  height: 25.h,
-                  width: 25.w,
+          Container(
+            margin: EdgeInsetsDirectional.only(end: 8.r, top: 12.r),
+            child: Stack(
+              children: [
+                InkWell(
+                  onTap: () {},
+                  child: SvgPicture.asset(
+                    '${Const.images}notfiactions.svg',
+                    height: 25.h,
+                    width: 25.w,
+                  ),
                 ),
-              ),
-              Container(
-                alignment: AlignmentDirectional.center,
-                width: 15.w,
-                height: 15.h,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.r),
-                    color: AppColors.lightred
+                Container(
+                  alignment: AlignmentDirectional.center,
+                  width: 15.w,
+                  height: 15.h,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.r),
+                      color: AppColors.lightred
+                  ),
+                  child: AppText.medium(text: '8',color: Colors.white,fontSize: 10),
                 ),
-                child: AppText.medium(text: '8',color: Colors.white,fontSize: 10),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
@@ -107,8 +109,8 @@ class TawafuqBlogScreen extends StatelessWidget {
                       color: Colors.black,
                       fontSize: 14.h,
                       fontWeight: FontWeight.w600),
-                  Spacer(),
-                  Icon(
+                  const Spacer(),
+                  const Icon(
                     Icons.access_time_outlined,
                     color: AppColors.lightgray,
                     size: 20,

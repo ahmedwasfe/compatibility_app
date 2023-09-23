@@ -95,7 +95,7 @@ Widget build(BuildContext context) {
 
 //كلمة تخطي
               InkWell(
-                onTap: ()=> Get.toNamed(Routes.welcom),
+                onTap: () => _controller.goToLogin(),
                 child: Container(
                   margin: EdgeInsetsDirectional.only(top: 5.r),
                   alignment: AlignmentDirectional.bottomCenter,
@@ -149,7 +149,7 @@ Widget pageViewScreens(Boardings boarding) => Container(
             //   )
             // ),
             margin: EdgeInsetsDirectional.only(
-                top: 40.r),
+                top: 40.r, end: 28.r),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -220,10 +220,11 @@ Widget pageViewScreens(Boardings boarding) => Container(
                       ),
                     )),
                 SizedBox(width: 0.w),
-                SvgPicture.asset('${Const.icons}icon_language.svg',
-                    width: 20.w,
-                    height: 20.h,
-                    color: Colors.white),
+                // Icon(Icons.language),
+                // SvgPicture.asset('${Const.icons}icon_language.svg',
+                //     width: 20.w,
+                //     height: 20.h,
+                //     color: Colors.white),
               ],
             ),
           ),

@@ -101,7 +101,7 @@ class RegisterSelfScreen extends StatelessWidget {
                             children: [
                               TextFormField(
                                 textInputAction: TextInputAction.go,
-                                controller: controller.selfController,
+                                controller: controller.talkDescriptionController,
                                 keyboardType: TextInputType.text,
                                 cursorColor: Colors.black,
                                 cursorWidth: 1.3.w,
@@ -178,7 +178,10 @@ class RegisterSelfScreen extends StatelessWidget {
                   child: AppWidgets.CustomButton(
                     text: 'next'.tr,
                     click: () {
-                      Get.toNamed(Routes.register_Informations);
+                      if(controller.isValidationSelfDescription(context)){
+                        Get.toNamed(Routes.register_Informations);
+                      }
+
                     },
                     height: 47.h,
                     width: 220.w,

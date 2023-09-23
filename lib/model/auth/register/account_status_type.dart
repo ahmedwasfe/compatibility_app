@@ -1,6 +1,6 @@
-class AccountStatusType{
-  late int value;
+class AccountStatus{
+  late String value;
   late String name;
 
-  AccountStatusType({required this.value, required this.name});
+  AccountStatus({required this.value, required this.name});
 }

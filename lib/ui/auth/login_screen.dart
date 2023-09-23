@@ -220,13 +220,17 @@ class LoginScreen extends GetView<LoginController> {
                 ),
                 onTap: () => Get.toNamed(Routes.forget),
               ),
-
+              Center(
+                child: Container(
+                    margin: const EdgeInsets.only(bottom: 0),
+                    child: Obx(() => controller.isLoading.isTrue ? AppWidgets.CustomAnimationProgress() : Container())),
+              ),
               Container(
                   padding: EdgeInsetsDirectional.only(top: 40.r),
                   alignment: Alignment.center,
-                  child: AppWidgets.CustomButton(text: 'sing_up'.tr, click:(){
-                    AppHelper.showRatingapp(context);
-
+                  child: AppWidgets.CustomButton(text: 'sing_up'.tr,
+                    click:(){
+                    controller.login(context);
                   },
                     height: 47.h,width: 220.w,radius: 6.r,
                   )),
@@ -236,7 +240,6 @@ class LoginScreen extends GetView<LoginController> {
                 margin: EdgeInsets.only(top: 16.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-
                   children: [
                     AppText.medium(text: 'don_have_account',
                         fontSize: 16.sp,

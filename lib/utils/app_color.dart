@@ -82,6 +82,12 @@ class AppColors {
   static const colorGray = Color(0xFFF0F0F0);
   static const colorLine = Color(0xFFE0E0E0);
 
+  static const colorErrorBG = Color(0xFFFFE8E8);
+  static const colorErrorText = Color(0xFFFF5454);
+
+  static const colorSnackBarIconError = Color(0xFFAF2D2D);
+  static const colorSnackBaErrorColor = Color(0xFFC72C41);
+
   // static const String appMainColor = "0565AC";
   // static const String appSubColor = "404040";
   // static const String appOtherColor = "A1C2F5";

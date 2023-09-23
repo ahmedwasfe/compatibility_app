@@ -88,7 +88,7 @@ class RegisterScreen extends GetView<RegisterController> {
                           top: 8.r, start: 14.r, end: 14.r),
                       child: TextFormField(
                         textInputAction: TextInputAction.go,
-                        controller: controller.nameController,
+                        controller: controller.usernameController,
                         keyboardType: TextInputType.text,
                         cursorColor: Colors.black,
                         cursorWidth: 1.3.w,
@@ -157,7 +157,9 @@ class RegisterScreen extends GetView<RegisterController> {
                   child: AppWidgets.CustomButton(
                     text: 'next'.tr,
                     click: () {
-Get.toNamed(Routes.register_password);
+                      if(controller.isValidationUsername(context)){
+                        Get.toNamed(Routes.register_password);
+                      }
                     },
                     height: 47.h,
                     width: 220.w,

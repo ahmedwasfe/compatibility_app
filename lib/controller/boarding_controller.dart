@@ -38,5 +38,4 @@ class BoardingController extends GetxController {
     PreferencesManager.saveAppData(key: Const.KEY_BOARDING, value: true)
         .then((value) => {if (value) Get.offAndToNamed(Routes.welcom)});
   }
-
 }

@@ -140,13 +140,11 @@ RegisterController controller=Get.put(RegisterController());
                     child: Obx(() => controller.isLoading.isTrue ? AppWidgets.CustomAnimationProgress() : Container())),
               ),
               Container(
-                  padding: EdgeInsetsDirectional.only(top: 180.r, bottom: 10),
+                  padding: EdgeInsetsDirectional.only(top: 120.r, bottom: 10),
                   alignment: Alignment.center,
                   child: AppWidgets.CustomButton(
                     text: 'create_account'.tr,
-                    click: () {
-                      Get.toNamed(Routes.home);
-                    },
+                    click: () => controller.createAccount(),
                     height: 47.h,
                     width: 220.w,
                     radius: 6.r,

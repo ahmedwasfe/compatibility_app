@@ -1,3 +1,4 @@
+import 'package:awesome_top_snackbar/awesome_top_snackbar.dart';
 import 'package:compatibility_app/utils/app_color.dart';
 import 'package:compatibility_app/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -47,10 +48,6 @@ class AppWidgets{
         ),
       );
 
-
-
-
-
   static Widget CustomAnimationProgress() => Center(
       child: Container(
           margin: const EdgeInsets.symmetric(vertical: 20),
@@ -59,6 +56,34 @@ class AppWidgets{
           child: LoadingAnimationWidget.threeArchedCircle(
               color: AppColors.colorpurple,
               size: 25.h)));
+
+  static showSnackBar(
+      {required BuildContext context,
+        required String message,
+        Color textColor = Colors.white,
+        Color backgroundColor = AppColors.colorSnackBaErrorColor,
+        Color iconColor = AppColors.colorSnackBaErrorColor,
+        Widget? startIcon,
+        Color startIconColor = AppColors.colorErrorText}) {
+    awesomeTopSnackbar(
+      context,
+      message.tr,
+      textStyle: TextStyle(
+          color: textColor,
+          fontFamily: Const.appFont,
+          fontStyle: FontStyle.italic,
+          fontWeight: FontWeight.w400,
+          fontSize: 13.sp),
+      backgroundColor: backgroundColor,
+      starIcon:
+      startIcon ?? Icon(Icons.error_outline_rounded, color: startIconColor),
+      icon: Icon(Icons.close, color: iconColor),
+      iconWithDecoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(50),
+        border: Border.all(color: backgroundColor),
+      ),
+    );
+  }
 }
 
 
