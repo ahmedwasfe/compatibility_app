@@ -19,6 +19,16 @@ class RegisterScreen extends GetView<RegisterController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+        ),
+      ),
       body: Form(
         key: controller.formKey,
         child: SingleChildScrollView(
@@ -41,21 +51,24 @@ class RegisterScreen extends GetView<RegisterController> {
                     text: 'oh_grant_good_wife',
                     color: AppColors.darkSecondColor),
               ),
-              Container(
-                padding: EdgeInsetsDirectional.only(top: 35.r),
-                alignment: AlignmentDirectional.center,
-                child: SvgPicture.asset(
-                  '${Const.images}sing_up.svg',
-                  fit: BoxFit.cover,
-                  height: 186.h,
-                  width: double.infinity,
-                ),
-              ),
+              // Container(
+              //   padding: EdgeInsetsDirectional.only(top: 35.r),
+              //   alignment: AlignmentDirectional.center,
+              //   child: SvgPicture.asset(
+              //     '${Const.images}sing_up.svg',
+              //     fit: BoxFit.cover,
+              //     height: 186.h,
+              //     width: double.infinity,
+              //   ),
+              // ),
+
+              Image.asset('${Const.images}image_welcom.gif',width: double.infinity),
+
               Container(
                 margin: EdgeInsetsDirectional.only(
-                    top: 36.r, start: 16.r, end: 16.r),
+                    top: 0.r, start: 16.r, end: 16.r),
+                padding: EdgeInsetsDirectional.only(bottom: 20.r),
                 width: double.infinity,
-                height: 202.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.r).r,
                   color: AppColors.lightGray6,

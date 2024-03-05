@@ -10,9 +10,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../../../utils/components.dart';
+
 //شاشة المعلومات الشخصيه
 class RegisterInformationsScreen extends StatelessWidget {
-  RegisterController controller=Get.put(RegisterController());
+  RegisterController controller = Get.put(RegisterController());
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +22,15 @@ class RegisterInformationsScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading:IconButton(onPressed: (){
-          Navigator.pop(context);
-        },icon: Icon(Icons.arrow_back,color: AppColors.colorgreenl,),),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: AppColors.colorgreenl,
+          ),
+        ),
       ),
       body: Form(
         child: SingleChildScrollView(
@@ -58,260 +65,276 @@ class RegisterInformationsScreen extends StatelessWidget {
                 ),
               ),
               Container(
-     margin: EdgeInsetsDirectional.only(top: 32.r,start: 16,end: 16),
-     padding: EdgeInsetsDirectional.only(bottom: 20.r),
-     width:320.r ,
-     alignment: AlignmentDirectional.center,
-     decoration: BoxDecoration(
-         color: AppColors.lightBorder,
-         borderRadius: BorderRadius.circular(8.r)
-     ),
-     child: Column(
-       crossAxisAlignment: CrossAxisAlignment.start,
-       mainAxisAlignment: MainAxisAlignment.start,
-       children: [
-         Column(
-           mainAxisAlignment: MainAxisAlignment.start,
-           crossAxisAlignment: CrossAxisAlignment.start,
-           children: [
-             Container(
-               margin:
-               EdgeInsetsDirectional.only(top: 15.r, start: 16.r),
-               child: Row(
-                 crossAxisAlignment: CrossAxisAlignment.start,
-                 mainAxisAlignment: MainAxisAlignment.start,
-                 children: [
-                   Container(
-                     alignment: AlignmentDirectional.topStart,
-                     child: AppText.medium(
-                         text: 'full_name', fontWeight: FontWeight.w500),
-                   ),
-                   Container(
-                       padding: EdgeInsetsDirectional.only(start: 4.r),
-                       child: AppText.medium(
-                           text: '*', color: Colors.red, fontSize: 18)),
-                 ],
-               ),
-             ),
-             Container(
-               margin: EdgeInsetsDirectional.only(
-                   top: 8.r, start: 14.r, end: 14.r),
-               child: TextFormField(
-                 textInputAction: TextInputAction.go,
-                 controller: controller.nameController,
-                 keyboardType: TextInputType.text,
-                 cursorColor: Colors.black,
-                 cursorWidth: 1.3.w,
-                 cursorRadius: const Radius.circular(10).r,
-                 enabled: true,
-                 textAlignVertical: AppHelper.getTextAlignVertical(),
-                 style: TextStyle(
-                   fontWeight: FontWeight.w400,
-                   fontSize: 16.sp,
-                   color: Colors.black,
-                 ),
-                 decoration: InputDecoration(
-                     hintText: 'enter_full_name'.tr,
-                     hintStyle: TextStyle(
-                         color: AppColors.grayColor,
-                         fontSize: 14.h,
-                         fontWeight: FontWeight.w400),
-                     // fillColor:  AppColors.colorGray,
-                     fillColor: Colors.white,
-                     filled: true,
-                     helperMaxLines: 2,
-                     enabledBorder: OutlineInputBorder(
-                       borderSide: BorderSide(
-                           color: AppColors.lightGray8, width: 0.3.w),
-                       borderRadius: BorderRadius.circular(8).r,
-                     ),
-                     focusedBorder: OutlineInputBorder(
-                       borderSide: BorderSide(
-                           color: Colors.black, width: 1.w),
-                       borderRadius: BorderRadius.circular(8).r,
-                     ),
-                     constraints: BoxConstraints(
-                       maxHeight: 50.h,
-                       minWidth: 48.w,
-                     )),
-                 validator: (name) =>
-                     AppHelper.validateUserName(name: name!),
-               ),
-             ),
-           ],
-         ),
-
-         SingleChildScrollView(
-           child: Column(
-             mainAxisAlignment: MainAxisAlignment.start,
-             crossAxisAlignment: CrossAxisAlignment.start,
-             children: [
-               Container(
-                 margin:
-                 EdgeInsetsDirectional.only(top: 20.r, start: 16.r),
-                 child: Row(
-                   crossAxisAlignment: CrossAxisAlignment.start,
-                   mainAxisAlignment: MainAxisAlignment.start,
-                   children: [
-                     Container(
-                       alignment: AlignmentDirectional.topStart,
-                       child: AppText.medium(
-                           text: 'phone', fontWeight: FontWeight.w500),
-                     ),
-                     Container(
-                         padding: EdgeInsetsDirectional.only(start: 4.r),
-                         child: AppText.medium(
-                             text: '*', color: Colors.red, fontSize: 18)),
-                   ],
-                 ),
-               ),
-               Container(
-                 margin: EdgeInsetsDirectional.only(
-                     top: 8.r, start: 14.r, end: 14.r),
-                 child: TextFormField(
-                   textInputAction: TextInputAction.go,
-                   controller: controller.phoneController,
-                   keyboardType: TextInputType.phone,
-                   cursorColor: Colors.black,
-                   cursorWidth: 1.3.w,
-                   cursorRadius: const Radius.circular(10).r,
-                   enabled: true,
-                   textAlignVertical: AppHelper.getTextAlignVertical(),
-                   style: TextStyle(
-                     fontWeight: FontWeight.w400,
-                     fontSize: 16.sp,
-                     color: Colors.black,
-                   ),
-                   decoration: InputDecoration(
-                     hintText: 'enter_mobile'.tr,
-                     hintStyle: TextStyle(
-                         color: AppColors.grayColor,
-                         fontSize: 14.h,
-                         fontWeight: FontWeight.w400),
-                     // fillColor:  AppColors.colorGray,
-                     fillColor: Colors.white,
-                     filled: true,
-                     helperMaxLines: 2,
-                     enabledBorder: OutlineInputBorder(
-                       borderSide: BorderSide(
-                           color: AppColors.lightGray8, width: 0.3.w),
-                       borderRadius: BorderRadius.circular(8).r,
-                     ),
-                     focusedBorder: OutlineInputBorder(
-                       borderSide: BorderSide(
-                           color: Colors.black, width: 1.w),
-                       borderRadius: BorderRadius.circular(8).r,
-                     ),
-                     constraints: BoxConstraints(
-                       maxHeight: 50.h,
-                       minWidth: 48.w,
-                     ),
-                   ),
-                   validator: (Phone) =>
-                       AppHelper.validatePhone(phone: Phone!),
-                 ),
-
-               ),
-
-             ],
-           ),
-         ),
-         SingleChildScrollView(
-           child: Column(
-             mainAxisAlignment: MainAxisAlignment.start,
-             crossAxisAlignment: CrossAxisAlignment.start,
-             children: [
-               Container(
-                 margin:
-                 EdgeInsetsDirectional.only(top: 20.r, start: 16.r),
-                 child: Row(
-                   crossAxisAlignment: CrossAxisAlignment.start,
-                   mainAxisAlignment: MainAxisAlignment.start,
-                   children: [
-                     Container(
-                       alignment: AlignmentDirectional.topStart,
-                       child: AppText.medium(
-                           text: 'email', fontWeight: FontWeight.w500),
-                     ),
-                     Container(
-                         padding: EdgeInsetsDirectional.only(start: 4.r),
-                         child: AppText.medium(
-                             text: '*', color: Colors.red, fontSize: 18)),
-                   ],
-                 ),
-               ),
-               Container(
-                 margin: EdgeInsetsDirectional.only(
-                     top: 8.r, start: 14.r, end: 14.r),
-                 child: TextFormField(
-                   textInputAction: TextInputAction.go,
-                   controller: controller.emailController,
-                   keyboardType: TextInputType.emailAddress,
-                   cursorColor: Colors.black,
-                   cursorWidth: 1.3.w,
-                   cursorRadius: const Radius.circular(10).r,
-                   enabled: true,
-                   textAlignVertical: AppHelper.getTextAlignVertical(),
-                   style: TextStyle(
-                     fontWeight: FontWeight.w400,
-                     fontSize: 16.sp,
-                     color: Colors.black,
-                   ),
-                   decoration: InputDecoration(
-                     hintText: 'enter_email'.tr,
-                     hintStyle: TextStyle(
-                         color: AppColors.grayColor,
-                         fontSize: 14.h,
-                         fontWeight: FontWeight.w400),
-                     // fillColor:  AppColors.colorGray,
-                     fillColor: Colors.white,
-                     filled: true,
-                     helperMaxLines: 2,
-                     enabledBorder: OutlineInputBorder(
-                       borderSide: BorderSide(
-                           color: AppColors.lightGray8, width: 0.3.w),
-                       borderRadius: BorderRadius.circular(8).r,
-                     ),
-                     focusedBorder: OutlineInputBorder(
-                       borderSide: BorderSide(
-                           color: Colors.black, width: 1.w),
-                       borderRadius: BorderRadius.circular(8).r,
-                     ),
-                     constraints: BoxConstraints(
-                       maxHeight: 50.h,
-                       minWidth: 48.w,
-                     ),
-                   ),
-                   validator: (email) =>
-                       AppHelper.validateEmail(email: email!),
-                 ),
-
-               ),
-
-             ],
-           ),
-         ),
-       ],
-     ),
-   ),
+                margin:
+                    EdgeInsetsDirectional.only(top: 32.r, start: 16, end: 16),
+                padding: EdgeInsetsDirectional.only(bottom: 20.r),
+                width: 320.r,
+                alignment: AlignmentDirectional.center,
+                decoration: BoxDecoration(
+                    color: AppColors.lightBorder,
+                    borderRadius: BorderRadius.circular(8.r)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: EdgeInsetsDirectional.only(
+                              top: 15.r, start: 16.r),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                alignment: AlignmentDirectional.topStart,
+                                child: AppText.medium(
+                                    text: 'full_name',
+                                    fontWeight: FontWeight.w500),
+                              ),
+                              Container(
+                                  padding:
+                                      EdgeInsetsDirectional.only(start: 4.r),
+                                  child: AppText.medium(
+                                      text: '*',
+                                      color: Colors.red,
+                                      fontSize: 18)),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsetsDirectional.only(
+                              top: 8.r, start: 14.r, end: 14.r),
+                          child: TextFormField(
+                            textInputAction: TextInputAction.go,
+                            controller: controller.nameController,
+                            keyboardType: TextInputType.text,
+                            cursorColor: Colors.black,
+                            cursorWidth: 1.3.w,
+                            cursorRadius: const Radius.circular(10).r,
+                            enabled: true,
+                            textAlignVertical: AppHelper.getTextAlignVertical(),
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16.sp,
+                              color: Colors.black,
+                            ),
+                            decoration: InputDecoration(
+                                hintText: 'enter_full_name'.tr,
+                                hintStyle: TextStyle(
+                                    color: AppColors.grayColor,
+                                    fontSize: 14.h,
+                                    fontWeight: FontWeight.w400),
+                                // fillColor:  AppColors.colorGray,
+                                fillColor: Colors.white,
+                                filled: true,
+                                helperMaxLines: 2,
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: AppColors.lightGray8,
+                                      width: 0.3.w),
+                                  borderRadius: BorderRadius.circular(8).r,
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.black, width: 1.w),
+                                  borderRadius: BorderRadius.circular(8).r,
+                                ),
+                                constraints: BoxConstraints(
+                                  maxHeight: 50.h,
+                                  minWidth: 48.w,
+                                )),
+                            validator: (name) =>
+                                AppHelper.validateUserName(name: name!),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            margin: EdgeInsetsDirectional.only(
+                                top: 20.r, start: 16.r),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  alignment: AlignmentDirectional.topStart,
+                                  child: AppText.medium(
+                                      text: 'phone',
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                Container(
+                                    padding:
+                                        EdgeInsetsDirectional.only(start: 4.r),
+                                    child: AppText.medium(
+                                        text: '*',
+                                        color: Colors.red,
+                                        fontSize: 18)),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsetsDirectional.only(
+                                top: 8.r, start: 14.r, end: 14.r),
+                            child: TextFormField(
+                              textInputAction: TextInputAction.go,
+                              controller: controller.phoneController,
+                              keyboardType: TextInputType.phone,
+                              cursorColor: Colors.black,
+                              cursorWidth: 1.3.w,
+                              cursorRadius: const Radius.circular(10).r,
+                              enabled: true,
+                              textAlignVertical:
+                                  AppHelper.getTextAlignVertical(),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.sp,
+                                color: Colors.black,
+                              ),
+                              decoration: InputDecoration(
+                                hintText: 'enter_mobile'.tr,
+                                hintStyle: TextStyle(
+                                    color: AppColors.grayColor,
+                                    fontSize: 14.h,
+                                    fontWeight: FontWeight.w400),
+                                // fillColor:  AppColors.colorGray,
+                                fillColor: Colors.white,
+                                filled: true,
+                                helperMaxLines: 2,
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: AppColors.lightGray8,
+                                      width: 0.3.w),
+                                  borderRadius: BorderRadius.circular(8).r,
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.black, width: 1.w),
+                                  borderRadius: BorderRadius.circular(8).r,
+                                ),
+                                constraints: BoxConstraints(
+                                  maxHeight: 50.h,
+                                  minWidth: 48.w,
+                                ),
+                              ),
+                              validator: (Phone) =>
+                                  AppHelper.validatePhone(phone: Phone!),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            margin: EdgeInsetsDirectional.only(
+                                top: 20.r, start: 16.r),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  alignment: AlignmentDirectional.topStart,
+                                  child: AppText.medium(
+                                      text: 'email',
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                Container(
+                                    padding:
+                                        EdgeInsetsDirectional.only(start: 4.r),
+                                    child: AppText.medium(
+                                        text: '*',
+                                        color: Colors.red,
+                                        fontSize: 18)),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsetsDirectional.only(
+                                top: 8.r, start: 14.r, end: 14.r),
+                            child: TextFormField(
+                              textInputAction: TextInputAction.go,
+                              controller: controller.emailController,
+                              keyboardType: TextInputType.emailAddress,
+                              cursorColor: Colors.black,
+                              cursorWidth: 1.3.w,
+                              cursorRadius: const Radius.circular(10).r,
+                              enabled: true,
+                              textAlignVertical:
+                                  AppHelper.getTextAlignVertical(),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.sp,
+                                color: Colors.black,
+                              ),
+                              decoration: InputDecoration(
+                                hintText: 'enter_email'.tr,
+                                hintStyle: TextStyle(
+                                    color: AppColors.grayColor,
+                                    fontSize: 14.h,
+                                    fontWeight: FontWeight.w400),
+                                // fillColor:  AppColors.colorGray,
+                                fillColor: Colors.white,
+                                filled: true,
+                                helperMaxLines: 2,
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: AppColors.lightGray8,
+                                      width: 0.3.w),
+                                  borderRadius: BorderRadius.circular(8).r,
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.black, width: 1.w),
+                                  borderRadius: BorderRadius.circular(8).r,
+                                ),
+                                constraints: BoxConstraints(
+                                  maxHeight: 50.h,
+                                  minWidth: 48.w,
+                                ),
+                              ),
+                              validator: (email) =>
+                                  AppHelper.validateEmail(email: email!),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               Center(
                 child: Container(
                     margin: const EdgeInsets.only(bottom: 0),
-                    child: Obx(() => controller.isLoading.isTrue ? AppWidgets.CustomAnimationProgress() : Container())),
+                    child: Obx(() => controller.isLoading.isTrue
+                        ? AppWidgets.CustomAnimationProgress()
+                        : Container())),
               ),
               Container(
-                  padding: EdgeInsetsDirectional.only(top: 14.r,bottom: 20.r),
+                  padding: EdgeInsetsDirectional.only(top: 14.r, bottom: 20.r),
                   alignment: Alignment.center,
-                  child: AppWidgets.CustomButton(text: 'next'.tr, click:(){
-                    if(controller.isValidationPersonalInfo(context)){
-                      Get.toNamed(Routes.register_conditions);
-                    }
-
-                  },
-                    height: 47.h,width: 220.w,radius: 6.r,
+                  child: AppWidgets.CustomButton(
+                    text: 'next'.tr,
+                    click: () {
+                      if (controller.isValidationPersonalInfo(context)) {
+                        // Get.toNamed(Routes.registerConditions);
+                        Get.toNamed(Routes.register);
+                      }
+                    },
+                    height: 47.h,
+                    width: 220.w,
+                    radius: 6.r,
                   )),
-
-
             ],
           ),
         ),

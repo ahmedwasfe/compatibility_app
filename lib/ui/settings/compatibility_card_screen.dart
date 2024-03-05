@@ -25,8 +25,10 @@ class CompatibiltityCardScreen extends StatelessWidget {
             fontWeight: FontWeight.w600,
             color: Colors.black),
         leading: IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back, color: Colors.black),
         ),
         actions: [
           Stack(

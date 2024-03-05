@@ -1,4 +1,8 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:compatibility_app/api/api_requestes.dart';
+import 'package:compatibility_app/api/firebase_api.dart';
 import 'package:compatibility_app/model/auth/register/account_status_type.dart';
 import 'package:compatibility_app/model/auth/register/beard_type.dart';
 import 'package:compatibility_app/model/auth/register/smoking_type.dart';
@@ -10,14 +14,21 @@ import 'package:compatibility_app/model/settings/financial.dart';
 import 'package:compatibility_app/model/settings/marriage_type.dart';
 import 'package:compatibility_app/model/settings/physique.dart';
 import 'package:compatibility_app/model/settings/prayer.dart';
+import 'package:compatibility_app/model/settings/problem_type.dart';
 import 'package:compatibility_app/model/settings/religious_commitment.dart';
 import 'package:compatibility_app/model/settings/skin.dart';
+import 'package:compatibility_app/model/user_type.dart';
 import 'package:compatibility_app/routes/routes.dart';
+import 'package:compatibility_app/ui/auth/forget_password/verification_code_screen.dart';
 import 'package:compatibility_app/utils/app_color.dart';
+import 'package:compatibility_app/utils/app_text.dart';
 import 'package:compatibility_app/utils/components.dart';
 import 'package:compatibility_app/utils/constants.dart';
 import 'package:compatibility_app/utils/preferences_manager.dart';
+import 'package:custom_check_box/custom_check_box.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 
@@ -85,7 +96,18 @@ class RegisterController extends GetxController{
   RxString selectedEducationFieldType_ = ''.obs;
   int selectedEducationField = 0;
 
-//الدوله
+  //سبب المشكله
+
+  RxString selectedselectedProblem_ = ''.obs;
+  int selectedselectedProblem = 0;
+
+
+  String userSelected = '';
+
+  List<UserType> listUserType = [
+    UserType(name: 'as_husband'.tr, value: 'husband', isSelected: false),
+    UserType(name: 'as_wife'.tr, value: 'wife', isSelected: false),
+  ];
 
   List<CountryData> listCountries = [];
 
@@ -96,6 +118,13 @@ class RegisterController extends GetxController{
   List<AccountStatus> listAccountStatus = [
     AccountStatus(value: 'appear', name: 'appear'),
     AccountStatus(value: 'disappear', name: 'disappear'),
+  ];
+
+
+  //سبب المشكله
+  List<ProblemType> listProblems = [
+    ProblemType(value: 'appear', name: 'appear'),
+    ProblemType(value: 'disappear', name: 'disappear'),
   ];
 
   List<SmokingType> listSmoking = [
@@ -472,6 +501,19 @@ class RegisterController extends GetxController{
     }
   }
 
+  bool isValidationUserType(BuildContext context) {
+    if(userSelected.isEmpty){
+      AppWidgets.showSnackBar(context: context,
+          message: 'welcome_to_application',
+          textColor: AppColors.colorErrorText,
+          backgroundColor: AppColors.colorErrorBG,
+          iconColor: AppColors.colorErrorText);
+      return false;
+    }else {
+      return true;
+    }
+  }
+
   Future<void> getCountries() async {
     await ApiRequestes.getCountries()
         .then((value) {
@@ -572,28 +614,99 @@ class RegisterController extends GetxController{
     });
   }
 
-  void createAccount() {
+  void createAccount(BuildContext context) {
     isLoading(true);
     ApiRequestes.register(status: selectedStatus, marriageTypeId: selectedMarriageType,
         age: ageController.text, childrenNum: childrenController.text, weight: weightController.text,
         height: heightController.text, skinId: selectedSkin,
         physiqueId: selectedBody, religiousCommitmentId: selectedCommitment,
         prayerId: selectedPrayer,
-        type: 'wife', educationalId: selectedEducational, smoking: selectedSmoking, beard: selectedBeard,
+        type: userSelected, educationalId: selectedEducational, smoking: selectedSmoking, beard: selectedBeard,
         financialId: selectedFinancial, educationFieldId: selectedEducationField, job: jobController.text,
         lifePartnerBio: talkDescriptionController.text, nationalityId: selectedNationality,
         countryId: selectedCountry, cityId: selectedCity, email: emailController.text, username: usernameController.text,
         fullName: nameController.text, password: passwordController.text,
-        confirmPassword: confirmPasswordController.text, mobile: phoneController.text, bio: descriptionController.text)
-        .then((value) {
+        confirmPassword: confirmPasswordController.text, mobile: phoneController.text, bio: descriptionController.text,
+        deviceType: Platform.isAndroid ? TargetPlatform.android.name : TargetPlatform.iOS.name, fcmToken: PreferencesManager.getUserToken(key: Const.KEY_FCM_TOKEN))
+        .then((value) async {
           if(value != null){
             isLoading(false);
-            PreferencesManager.saveUserToken(key: Const.KEY_USER_TOKEN, token: value.result!.token!);
-            PreferencesManager.saveUserData(key: Const.KEY_USER_DATA, user: value.result!.user!);
-            Get.toNamed(Routes.home);
+            Get.to(VerificationCodeScreen(email: value.result!.user!.email!, token: value.result!.token!));
           }else {
             isLoading(false);
           }
     });
+  }
+
+  void showPromiseDialog(BuildContext context) async {
+    showModalBottomSheet(
+        context: context,
+        backgroundColor: Colors.transparent,
+        builder: (_) => GestureDetector(
+          onTap: () => Navigator.pop(context),
+          child: Container(
+              alignment: AlignmentDirectional.center,
+              width: double.infinity,
+              clipBehavior: Clip.antiAlias,
+              margin: EdgeInsets.zero,
+              padding: EdgeInsets.zero,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadiusDirectional.only(
+                      topStart: Radius.circular(12.r),
+                      topEnd: Radius.circular(12.r)
+                  )
+              ),
+              child: Container(
+                padding: EdgeInsetsDirectional.only(start: 6.r, end: 6.r),
+                child: Column(
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 5.h),
+                    SvgPicture.asset('${Const.images}image_promise.svg', width: 120, height: 120),
+                    SizedBox(height: 2.h),
+                    AppText.medium(text: 'السلام عليكم ورحمة الله وبركاته', maxline: 1, textAlign: TextAlign.center),
+                    AppText.medium(text: 'promise_title', maxline: 1, textAlign: TextAlign.center, color: AppColors.lightpurple),
+                    SizedBox(height: 4.h),
+                    AppText.medium(text: 'promise_content', maxline: 10, textAlign: TextAlign.center, fontSize: 14.sp),
+                    Row(
+                      children: [
+                        GetBuilder<RegisterController>(builder: (controller) => CustomCheckBox(
+                          value: isCheck,
+                          checkedFillColor: AppColors.colorAppMain,
+                          splashColor: AppColors.colorAppMain,
+                          borderColor: Colors.grey,
+                          tooltip: 'Custom Check Box',
+                          splashRadius: 9,
+                          onChanged: (val) {
+                            isCheck = val;
+                            controller.update();
+                          },
+                        )),
+                        AppText.medium(
+                            text: 'promise_check', maxline: 1, textAlign: TextAlign.center, fontSize: 14.sp),
+                      ],
+                    ),
+                    GetBuilder<RegisterController>(builder: (controller) => Container(
+                      margin: EdgeInsetsDirectional.only(start: 16.r, end: 16.r, top: 4.r),
+                      child: AppWidgets.CustomButton(
+                          text: 'continuation',
+                          textColor: isCheck ? Colors.white : AppColors.colorAppMain,
+                          isUpperCase: false,
+                          radius: 8.r,
+                          background: isCheck ? AppColors.colorAppMain : Colors.white,
+                          borderColor: isCheck ? Colors.white : AppColors.colorAppMain,
+                          click: () {
+                            if(isCheck) {
+                              createAccount(context);
+                            }
+                          }),
+                    ))
+                  ],
+                ),
+              )
+          ),
+        ));
   }
 }

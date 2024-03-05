@@ -1,7 +1,13 @@
+import 'dart:developer';
 
+import 'package:compatibility_app/controller/blog_controller.dart';
+import 'package:compatibility_app/model/post/blog.dart';
+import 'package:compatibility_app/model/user.dart';
 import 'package:compatibility_app/routes/routes.dart';
+import 'package:compatibility_app/ui/settings/tawafuq_details_screen.dart';
 import 'package:compatibility_app/utils/app_color.dart';
 import 'package:compatibility_app/utils/app_text.dart';
+import 'package:compatibility_app/utils/components.dart';
 import 'package:compatibility_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,7 +17,7 @@ import 'package:get/get_utils/get_utils.dart';
 
 //مدونة توافق
 class TawafuqBlogScreen extends StatelessWidget {
-  const TawafuqBlogScreen({Key? key}) : super(key: key);
+  BlogController controller = Get.put(BlogController());
 
   @override
   Widget build(BuildContext context) {
@@ -25,54 +31,90 @@ class TawafuqBlogScreen extends StatelessWidget {
             fontWeight: FontWeight.w600,
             color: Colors.black),
         leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
         ),
         actions: [
-          Container(
-            margin: EdgeInsetsDirectional.only(end: 8.r, top: 12.r),
-            child: Stack(
-              children: [
-                InkWell(
-                  onTap: () {},
-                  child: SvgPicture.asset(
-                    '${Const.images}notfiactions.svg',
-                    height: 25.h,
-                    width: 25.w,
-                  ),
-                ),
-                Container(
-                  alignment: AlignmentDirectional.center,
-                  width: 15.w,
-                  height: 15.h,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.r),
-                      color: AppColors.lightred
-                  ),
-                  child: AppText.medium(text: '8',color: Colors.white,fontSize: 10),
-                ),
-              ],
+          GestureDetector(
+            child: Container(
+              alignment: AlignmentDirectional.centerEnd,
+              margin: EdgeInsetsDirectional.only(end: 20.r),
+              child: Stack(
+                // alignment: AlignmentDirectional.topEnd,
+                children: [
+                  SvgPicture.asset(
+                      width: 28.w, height: 28.h, '${Const.images}notfiactions.svg'),
+                  Container(
+                    alignment: AlignmentDirectional.topCenter,
+                    margin: EdgeInsetsDirectional.only(top: 0.r, start: 13.0.r),
+                    width: 18.w,
+                    height: 18.h,
+                    decoration: BoxDecoration(
+                        color: Colors.redAccent,
+                        borderRadius: BorderRadiusDirectional.circular(50.r)),
+                    child: AppText.medium(
+                        text: '8',
+                        fontWeight: FontWeight.w300,
+                        fontSize: 10.sp,
+                        color: Colors.white),
+                  )
+                ],
+              ),
             ),
+            onTap: () => Get.toNamed(Routes.notifications),
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ListTawafuq(),
-          ],
-        ),
+      body: FutureBuilder(
+        future: controller.getPost(),
+        builder: (_, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: GetBuilder<BlogController>(
+                  builder: (controller) => Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                              margin: EdgeInsetsDirectional.only(
+                                  top: 14.r, start: 16.r),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  AppText.medium(
+                                      text:
+                                          '(${controller.listBlog.length})'.tr,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16.h),
+                                ],
+                              )),
+                          ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: controller.listBlog.length,
+                              itemBuilder: (context, index) =>
+                                  buildPostItem(controller.listBlog[index]))
+                        ],
+                      )),
+            );
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            return AppWidgets.CustomAnimationProgress();
+          } else {
+            return Container();
+          }
+        },
       ),
     );
   }
-  Widget ListTawafuq(){
-    return  Container(
-      margin:
-      EdgeInsetsDirectional.only(start: 16.r, end: 16.r, top: 15.r),
+
+  Widget buildPostItem(Blogs post) {
+    return Container(
+      margin: EdgeInsetsDirectional.only(start: 16.r, end: 16.r, top: 15.r),
       width: double.infinity,
-      height: 318.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5.r),
         color: AppColors.colorGray,
@@ -93,8 +135,8 @@ class TawafuqBlogScreen extends StatelessWidget {
               color: AppColors.grayColor,
             ),
             child: Padding(
-              padding: EdgeInsetsDirectional.only(
-                  start: 12.r, end: 12.r, top: 7.r),
+              padding:
+                  EdgeInsetsDirectional.only(start: 12.r, end: 12.r, top: 7.r),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -105,7 +147,7 @@ class TawafuqBlogScreen extends StatelessWidget {
                     width: 5.w,
                   ),
                   AppText.larg(
-                      text: 'مشاعر الندم بعد الفراق',
+                      text: post.title!,
                       color: Colors.black,
                       fontSize: 14.h,
                       fontWeight: FontWeight.w600),
@@ -119,7 +161,7 @@ class TawafuqBlogScreen extends StatelessWidget {
                     width: 5.w,
                   ),
                   AppText.medium(
-                      text: 'منذ 5 أيام',
+                      text: post.createdAt!,
                       color: AppColors.lightgray,
                       fontWeight: FontWeight.w400,
                       fontSize: 12.h),
@@ -132,30 +174,45 @@ class TawafuqBlogScreen extends StatelessWidget {
           // height:125.h,
           // width: double.infinity,),
           Container(
-            margin: EdgeInsetsDirectional.only(
-                start: 12.r, end: 12.r, top: 9.r),
-            decoration:
-            BoxDecoration(borderRadius: BorderRadius.circular(8.r)),
-            child: Image.asset(
-              '${Const.images}detailsss.jpg',
-              fit: BoxFit.cover,
-              height: 125.h,
-              width: double.infinity,
-            ),
+            width: double.infinity,
+            clipBehavior: Clip.antiAlias,
+            margin:
+                EdgeInsetsDirectional.only(start: 12.r, end: 12.r, top: 9.r),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.r)),
+            child: CachedImage(imageUrl: post.imageUrl!, isLoading: true),
           ),
 
           Container(
             width: double.infinity,
-            margin: EdgeInsetsDirectional.only(start: 12.r,top: 4.r),
-            child: AppText.medium(text: 'النص جايييييييييييي من الابي اي النص جايييييييييييي من الابي اي\nالنص جايييييييييييي من الابي ايالنص جايييييييييييي من الابي اي\nالنص جايييييييييييي من الابي ايالنص جايييييييييييي من الابي اي\nالنص جايييييييييييي من الابي ايالنص جايييييييييييي من الابي اي',fontWeight: FontWeight.w400,
-                fontSize: 12.h,height: 1.8),
+            margin: EdgeInsetsDirectional.only(start: 12.r, top: 4.r),
+            child: AppText.medium(
+              text: post.description!,
+              fontWeight: FontWeight.w400,
+              fontSize: 12.h,
+              height: 1.8,
+              maxline: 10,
+            ),
           ),
 
-          Container(
-            child: AppText.larg(text: 'more'),
+          InkWell(
+            onTap: () {
+              log('POSTID: ${post.id}');
+              Get.to(TawafuqDetailsScreen(postId: post.id!));
+            },
+            child: Container(
+              margin: EdgeInsetsDirectional.only(
+                  top: 8.r, bottom: 10.r, start: 10.r),
+              child: Row(
+                children: [
+                  AppText.larg(text: 'more', fontSize: 15),
+                  SizedBox(
+                    width: 3.w,
+                  ),
+                  AppText.larg(text: '....', fontSize: 15),
+                ],
+              ),
+            ),
           ),
-
-
         ],
       ),
     );

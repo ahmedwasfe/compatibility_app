@@ -1,8 +1,9 @@
 
 import 'package:compatibility_app/bindings/login_bindings.dart';
 import 'package:compatibility_app/bindings/register_bindings.dart';
+import 'package:compatibility_app/ui/auth/forget_password/verification_code_screen.dart';
 import 'package:compatibility_app/ui/auth/register/forget_password_screen.dart';
-import 'package:compatibility_app/ui/auth/login_screen.dart';
+import 'package:compatibility_app/ui/auth/login/login_screen.dart';
 import 'package:compatibility_app/ui/auth/register/register_appearance_screen.dart';
 import 'package:compatibility_app/ui/auth/register/register_conditions_screen.dart';
 import 'package:compatibility_app/ui/auth/register/register_debt_screen.dart';
@@ -15,10 +16,11 @@ import 'package:compatibility_app/ui/auth/register/register_status_screen.dart';
 import 'package:compatibility_app/ui/auth/register/register_education_screen.dart';
 import 'package:compatibility_app/ui/auth/register/wifes_specifications_screen.dart';
 import 'package:compatibility_app/ui/boarding_screen.dart';
+import 'package:compatibility_app/ui/chat/chat_screen.dart';
 import 'package:compatibility_app/ui/home/home_screen.dart';
 import 'package:compatibility_app/ui/home/pages/members_screen.dart';
 import 'package:compatibility_app/ui/members/profile_members_screen.dart';
-import 'package:compatibility_app/ui/settings/Ignore_list.dart';
+import 'package:compatibility_app/ui/settings/Ignore_list_screen.dart';
 import 'package:compatibility_app/ui/settings/about_us_Screen.dart';
 import 'package:compatibility_app/ui/settings/call_screen.dart';
 import 'package:compatibility_app/ui/settings/compatibility_card_screen.dart';
@@ -26,27 +28,26 @@ import 'package:compatibility_app/ui/settings/list_interest_screen.dart';
 import 'package:compatibility_app/ui/settings/notifications_screen.dart';
 import 'package:compatibility_app/ui/settings/report_problem_screen.dart';
 import 'package:compatibility_app/ui/settings/secret_politics_screen.dart';
-import 'package:compatibility_app/ui/settings/settings_screen.dart';
+import 'package:compatibility_app/ui/home/pages/settings_page.dart';
 import 'package:compatibility_app/ui/settings/success_stories_screen.dart';
 import 'package:compatibility_app/ui/settings/tawafuq_blog_screen.dart';
 import 'package:compatibility_app/ui/settings/tawafuq_details_screen.dart';
 import 'package:compatibility_app/ui/settings/terms_conditions_screen.dart';
 import 'package:compatibility_app/ui/splash_screen.dart';
-import 'package:compatibility_app/ui/user_type_screen.dart';
+import 'package:compatibility_app/ui/auth/register/user_type_screen.dart';
 import 'package:compatibility_app/ui/welcome_screen.dart';
 import 'package:get/get.dart';
 
-import '../ui/auth/check _email_screen.dart';
-import '../ui/settings/profial_screen.dart';
+import '../ui/auth/forget_password/check _email_screen.dart';
+import '../ui/settings/profile_screen.dart';
 class AppRoutes {
 
 
   static final routesPages = [
 
-
     GetPage(name: Routes.splash, page: () => SplashScreen()),
     GetPage(name: Routes.boarding, page: () => BoardingScreen()),
-    GetPage(name: Routes.welcom, page: () => WelcomScreen()),
+    GetPage(name: Routes.welcom, page: () => WelcomeScreen()),
     GetPage(name: Routes.login, page: () => LoginScreen(), binding: LoginBinging()),
     GetPage(name: Routes.register, page: () => RegisterScreen(), binding: RegisterBinging()),
     GetPage(name: Routes.forget, page: () => ForgetPasswordScreen()),
@@ -60,12 +61,12 @@ class AppRoutes {
     GetPage(name: Routes.register_Wifes, page: () => WifesSpecificationScreen()),
     GetPage(name: Routes.register_self, page: () => RegisterSelfScreen()),
     GetPage(name: Routes.register_Informations, page: () => RegisterInformationsScreen()),
-    GetPage(name: Routes.register_conditions, page: () => RegisterConditionsScreen()),
+    GetPage(name: Routes.registerConditions, page: () => RegisterConditionsScreen()),
     GetPage(name: Routes.check_email, page: () => CheckEmailScreen()),
     GetPage(name: Routes.home, page: () => HomeScreen()),
-    GetPage(name: Routes.settings, page: () => SettingsScreen()),
-    GetPage(name: Routes.list_interest, page: () => ListInterestScreen()),
-    GetPage(name: Routes.list_lgnore, page: () => LgnoreList()),
+    GetPage(name: Routes.settings, page: () => SettingsPage()),
+    GetPage(name: Routes.interestList, page: () => InterestListScreen()),
+    GetPage(name: Routes.ignoreList, page: () => IgnoreListScreen()),
     GetPage(name: Routes.notifications, page: () => NotificationsScreen()),
     GetPage(name: Routes.compatibiltity_card, page: () => CompatibiltityCardScreen()),
     GetPage(name: Routes.tawafuq_blog, page: () => TawafuqBlogScreen()),
@@ -76,8 +77,11 @@ class AppRoutes {
     GetPage(name: Routes.report_problem, page: () => ReportProblemScreen()),
     GetPage(name: Routes.members, page: () => MembersScreen()),
     GetPage(name: Routes.success_stories, page: () => SuccessStoriesScreen()),
-    GetPage(name: Routes.profial, page: () => ProfialScreen()),
-    GetPage(name: Routes.profial_members, page: () => ProfialMembersScreen()),
+    GetPage(name: Routes.profile, page: () => ProfileScreen()),
+    GetPage(name: Routes.profileMember, page: () => ProfileMemeberScreen()),
+
+    GetPage(name: Routes.chat, page: () => ChatScreen()),
+    GetPage(name: Routes.verificationCode, page: () => VerificationCodeScreen()),
 
   ];
 
@@ -101,12 +105,12 @@ class Routes {
   static const register_Wifes = '/WifesSpecificationScreen' ;
   static const register_self = '/RegisterSelfScreen' ;
   static const register_Informations = '/RegisterInformationsScreen' ;
-  static const register_conditions = '/register_conditions' ;
+  static const registerConditions = '/register_conditions' ;
   static const check_email = '/CheckEmailScreen' ;
   static const home = '/HomeScreen' ;
   static const settings = '/SettingsScreen' ;
-  static const list_interest = '/ListInterestScreen' ;
-  static const list_lgnore = '/LgnoreList' ;
+  static const interestList = '/ListInterestScreen' ;
+  static const ignoreList = '/LgnoreList' ;
   static const notifications = '/NotificationsScreen' ;
   static const compatibiltity_card = '/CompatibiltityCardScreen' ;
   static const tawafuq_blog = '/TawafuqBlogScreen' ;
@@ -117,8 +121,10 @@ class Routes {
   static const report_problem = '/ReportProblemScreen' ;
   static const members = '/MembersScreen' ;
   static const success_stories = '/SuccessStoriesScreen' ;
-  static const profial = '/ProfialScreen' ;
-  static const profial_members = '/ProfialMembersScreen' ;
+  static const profile = '/ProfialScreen' ;
+  static const profileMember = '/ProfialMembersScreen' ;
+  static const chat = '/chat' ;
+  static const verificationCode = '/verificationCode' ;
 
 
 }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:compatibility_app/utils/app_helper.dart';
 
 class ApiHelper {
@@ -15,32 +17,44 @@ class ApiHelper {
   static const String FINANCIAL = '$_baseUrl/financial';
   static const String EDUCATION_FIELD = '$_baseUrl/education_field';
 
+  static const String SAVE_PROBLEM = '$_baseUrl/save_problem';
+  static const String CONTACT_US = '$_baseUrl/contact_us';
+
   static const String REGISTER = '$_baseUrl/register';
+  static const String CHECK_CODE = '$_baseUrl/send_bincode_by_email';
   static const String LOGIN = '$_baseUrl/login';
-//
-//   static const String BOARDING = '$_baseUrl/app-starter-interfaces';
-//   static const String TERMS = '$_baseUrl/term-conditions';
-//   static const String PRIVACY = '$_baseUrl/privacy-policy';
-//   static const String FAQS = '$_baseUrl/faqs';
-//   static const String CONTACT_US = '$_baseUrl/contact-us';
-//
-//   static const String REGISTER = '$_baseUrl/auth/register';
-//   static const String LOGIN = '$_baseUrl/auth/login';
-//   static const String CHANGE_PASSWORD = '$_baseUrl/auth/user-password-update';
-//   static const String LOGOUT = '$_baseUrl/auth/logout';
-//   static const String SEND_CODE = '$_baseUrl/auth/sent-code-for-reset-password';
-//   static const String VERIFY_CODE = '$_baseUrl/auth/check-code';
-//   static const String RESET_PASSWORD = '$_baseUrl/auth/check-code';
-//
-//
-//
-//
-//   static const String SECTIONS = '$_baseUrl/al-mokhalis/categories?search=';
-//   static const String JOBS = '$_baseUrl/al-mokhalis/all-works?';
-//   static const String APPLY_JOB = '$_baseUrl/al-mokhalis/work-request';
-//   static const String ADD_JOB = '$_baseUrl/al-mokhalis/add-work';
-//   static const String JOB_REQUEST = '$_baseUrl/al-mokhalis/work-request-for-employer';
-//
+  static const String LOGOUT = '$_baseUrl/logout';
+  static const String DELETE_ACCOUNT = '$_baseUrl/delete_user';
+  static const String UPDATE_PROFILE = '$_baseUrl/save_profile';
+
+
+  static const String Setting = '$_baseUrl/setting';
+  static const String PROFILE = '$_baseUrl/profail';
+
+  static const String NOTIFICATIONS = '$_baseUrl/notification';
+  static const String DELETE_NOTIFICATION = '$_baseUrl/delete_notification';
+
+
+  static const String SAVEPROFILE = '$_baseUrl/save_profile';
+
+  static const String BLOG = '$_baseUrl/posts';
+
+  static const String UPDATE_ACTIVE_STATUS = '$_baseUrl/online_user';
+  static const String MEMEBERS = '$_baseUrl/users';
+  static const String SUBSCRIPTION = '$_baseUrl/subscription';
+  static const String SLIDERS = '$_baseUrl/sliders';
+
+
+  static const String ADD_REVIEW = '$_baseUrl/add_review';
+
+  static const String IGNORES_LIST = '$_baseUrl/who_ignore_to_me';
+  static const String ADD_DELETE_IGNORES_LIST = '$_baseUrl/add_or_delete_ignore';
+
+  static const String INTERESTS_LIST = '$_baseUrl/who_interest_to_me';
+  static const String ADD_INTERESTS = '$_baseUrl/add_interest';
+
+  static const String SUCCESS_STORIES = '$_baseUrl/success_story';
+
 //
 //   static Map<String, String> registerHeader({required String language, required String deviceName}) {
 //     return  {
@@ -54,7 +68,8 @@ class ApiHelper {
 //   }
 //
   static Map<String, String> langHeader({required String language}) {
-    return {'X-Client-Language': language};
+    return {'X-Client-Language': language,
+      'Content-Type': 'application/json',};
   }
 
   static Map<String, String> tokenHeader({required String token}) {
@@ -67,6 +82,25 @@ class ApiHelper {
 //       'X-Client-Language': language
 //     };
 //   }
+
+  // TODO 8|CKFVtk7SAnHMyrVY8LXe1sWNoKD9HiVRFxaNQP1d
+  static Map<String, String> header() {
+    return {
+      'Authorization': 'Bearer ${AppHelper.getCurrentUserToken()!}',
+      'X-Client-Language': AppHelper.getAppLanguage(),
+      'Accept': 'application/json'
+    };
+  }
+
+  static Map<String, String> headerToken({required String token}) {
+    log('TOK: $token');
+    return {
+      'X-Client-Device-Name': AppHelper.getDeviceName(),
+      'Authorization': 'Bearer $token',
+      'X-Client-Language': AppHelper.getAppLanguage(),
+      'Accept': 'application/json',
+    };
+  }
 
   static Map<String, String> headers() {
     return {'Accept': 'application/json',
@@ -82,14 +116,15 @@ class ApiHelper {
 //     };
 //   }
 //
-//   static Map<String, String> adminHeader(
-//       {required String token, required String language}) {
-//     return {
-//       'Accept': 'application/json',
-//       'Authorization': token,
-//       'X-Client-Language': language
-//     };
-//   }
+  static Map<String, String> adminHeader(
+      {required String token, required String language}) {
+    return {
+    'X-Client-Device-Name': AppHelper.getDeviceName(),
+      'Accept': 'application/json',
+      'Authorization': token,
+      'X-Client-Language': language
+    };
+  }
 //
 //   static String get baseUrl => baseUrl;
 //

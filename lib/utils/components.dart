@@ -1,12 +1,14 @@
 import 'package:awesome_top_snackbar/awesome_top_snackbar.dart';
 import 'package:compatibility_app/utils/app_color.dart';
 import 'package:compatibility_app/utils/constants.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_utils/get_utils.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+
 
 class AppWidgets{
 
@@ -48,13 +50,13 @@ class AppWidgets{
         ),
       );
 
-  static Widget CustomAnimationProgress() => Center(
+  static Widget CustomAnimationProgress({Color color = AppColors.colorpurple}) => Center(
       child: Container(
           margin: const EdgeInsets.symmetric(vertical: 20),
           width: 40.w,
           height: 40.h,
           child: LoadingAnimationWidget.threeArchedCircle(
-              color: AppColors.colorpurple,
+              color: color,
               size: 25.h)));
 
   static showSnackBar(
@@ -86,7 +88,93 @@ class AppWidgets{
   }
 }
 
+class CachedImage extends StatelessWidget {
+  String imageUrl;
+  double width = 272;
+  double height = 159;
+  BoxFit fit = BoxFit.cover;
+  Color progressColor = AppColors.colorpurple;
+  bool isLoading = true;
+  String errorImage = '${Const.images}logo_com.svg';
 
+  CachedImage(
+      {super.key, required this.imageUrl,
+        this.width = 272,
+        this.height = 159,
+        this.fit = BoxFit.cover,
+        this.progressColor = AppColors.colorpurple,
+        this.isLoading = true,
+        this.errorImage = '${Const.images}logo_com.svg'});
+
+  @override
+  Widget build(BuildContext context) {
+    return CachedNetworkImage(
+        width: width.w,
+        height: height.r,
+        fit: BoxFit.cover,
+        imageUrl: imageUrl,
+        // placeholder: (_, imageurl) => Container(),
+        progressIndicatorBuilder: (_, imageUrl, downloaded) =>
+        isLoading ? AppWidgets.CustomAnimationProgress(color: progressColor) : Container(),
+        // fadeOutCurve: Curves.,
+        errorWidget: (_, imageUrl, error) => Container(
+          width: width.w,
+          height: height.r,
+          color: Colors.white,
+          child: Image.asset(
+              width: width.w,
+              height: height.r,
+              fit: BoxFit.scaleDown,
+              errorImage),
+        ));
+  }
+}
+
+class CircleCachedImage extends StatelessWidget {
+  String imageUrl;
+  double width = 272;
+  double height = 159;
+  double radius = 40;
+  BoxFit fit = BoxFit.cover;
+  bool isLoading = true;
+
+  CircleCachedImage({required this.imageUrl,
+    this.width = 272,
+    this.height = 159,
+    this.radius = 35,
+    this.fit = BoxFit.cover,
+    this.isLoading = true});
+
+  @override
+  Widget build(BuildContext context) {
+    return CircleAvatar(
+      backgroundColor: Colors.white,
+      radius: radius,
+      child: ClipOval(
+        child: CachedNetworkImage(
+            width: width.w,
+            height: height.r,
+            fit: BoxFit.cover,
+            imageUrl: imageUrl,
+            // placeholder: (_, imageurl) => Container(),
+            progressIndicatorBuilder: (_, imageUrl, downloaded) =>
+            isLoading ? AppWidgets.CustomAnimationProgress() : Container(),
+            // fadeOutCurve: Curves.,
+            errorWidget: (_, imageUrl, error) =>
+                Container(
+                  width: width.w,
+                  height: height.r,
+                  color: Colors.white,
+                  child: Image.asset(
+                      width: width.w,
+                      height: height.r,
+                      fit: BoxFit.scaleDown,
+                      '${Const.images}logo.png'),
+                )),
+      ),
+    );
+  }
+}
 
 class MainToolBar extends StatelessWidget {
   String? title;

@@ -87,18 +87,20 @@ class AppHelper {
     // 2022-11-13
   }
 
-  static Future saveDeviceName() async {
+  static Future saveDeviceInfo() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     if (Platform.isAndroid) {
       AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
       PreferencesManager.saveAppData(
           key: Const.KEY_DEVICE_NAME, value: androidInfo.model);
       print('Running on Android ${androidInfo.model}'); // e.g. "Moto G (4)"
+      print('Running on Android ${androidInfo.device}'); // e.g. "Moto G (4)"
     } else if (Platform.isIOS) {
       IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
       PreferencesManager.saveAppData(
           key: Const.KEY_DEVICE_NAME, value: iosInfo.utsname.machine);
       print('Running on IOS ${iosInfo.utsname.machine}'); // e.g. "iPod7,1"
+      print('Running on IOS ${iosInfo.utsname.sysname}'); // e.g. "iPod7,1"
     }
   }
 
@@ -270,74 +272,6 @@ class AppHelper {
     }
   }
 
-
-  //تقييم التطبيق
-  static void showRatingapp(BuildContext context){
-    showDialog(context: context, builder: (con) => AlertDialog(
-      clipBehavior: Clip.antiAlias,
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      content: InkWell(
-        onTap: ()=> Get.toNamed(Routes.home),
-        child: Container(
-          width: double.infinity,
-          height: 320.h,
-          clipBehavior: Clip.antiAlias,
-          margin: EdgeInsets.zero,
-          padding: EdgeInsets.zero,
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12)
-          ),
-          child:Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Container(
-                margin: EdgeInsetsDirectional.only(start: 10.r, end: 10.r),
-                child: AppText.medium(text:
-                'rating'.tr,
-                  color: AppColors.lightgray,
-                  fontSize: Platform.isAndroid ? 16.sp : 14.sp,
-                  fontWeight: FontWeight.w400,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              Container(
-          margin: EdgeInsetsDirectional.only(top: 20.r),
-          alignment: AlignmentDirectional.center,
-          child: RatingBar.builder(
-            initialRating: 0,
-            minRating: 1,
-            direction: Axis.horizontal,
-            allowHalfRating: true,
-            itemCount: 5,
-            itemBuilder: (context, _) => const Icon(
-              Icons.star,
-              color: Colors.amber,
-              size: 12,
-            ),
-            onRatingUpdate: (rating) {
-              print(rating);
-            },
-          ),
-        ),
-              Container(
-                  padding: EdgeInsetsDirectional.only(top: 10.r,start: 15.r
-                  ,end: 15.r
-                  ),
-                  alignment: Alignment.center,
-                  child: AppWidgets.CustomButton(text: 'submit_review'.tr,fontSize: 15.h, click:(){
-                   Navigator.pop(context);
-                  },
-                    height: 43.h,radius: 6.r,
-                  )),
-            ],
-          )
-        ),
-      ),
-    ));
-  }
-
 //سجيل الدخول بنجاح
   static void showLoginSuccess(BuildContext context){
     showDialog(context: context, builder: (con) => AlertDialog(
@@ -475,8 +409,6 @@ children: [
     ));
   }
 
-
-
   //كود الخصم
   static void showDiscountCode(BuildContext context){
     showDialog(context: context, builder: (con) => AlertDialog(
@@ -559,8 +491,6 @@ children: [
     ));
   }
 
-
-
   //تم تفعيل معلومات الملف الشخصي بنجاح
   static void showProfialSuccess(BuildContext context){
     showDialog(context: context, builder: (con) => AlertDialog(
@@ -603,8 +533,6 @@ children: [
       ),
     ));
   }
-
-
 
   //تم حذف جميع الاشعارات بنجاح
   static void showDeleteNotifiactionsSuccess(BuildContext context){
@@ -772,6 +700,16 @@ children: [
   }
 
 
+  static String iconArrow() {
+    return getAppLanguage() == 'ar'
+        ? '${Const.icons}icon_back_en.svg'
+        : '${Const.icons}icon_back_ar.svg';
+  }
+  static String iconLogout() {
+    return getAppLanguage() == 'ar'
+        ? '${Const.icons}icon_logout_en.svg'
+        : '${Const.icons}icon_logout_ar.svg';
+  }
 
 
 
@@ -833,6 +771,9 @@ children: [
         });
   }
 
+
+
+
   static void goToLogin() {
     // HomeController controller = Get.find();
     // PreferencesManager.clearData(key: Const.KEY_LATITUDE);
@@ -847,8 +788,8 @@ children: [
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     SystemChrome.setSystemUIOverlayStyle( SystemUiOverlayStyle(
         statusBarColor: isHome ? AppColors.colorpurple : Colors.white,
-        statusBarIconBrightness: Brightness.dark,
-        statusBarBrightness: Brightness.dark));
+        statusBarIconBrightness: isHome ? Brightness.light : Brightness.dark,
+        statusBarBrightness: isHome ? Brightness.light : Brightness.dark));
   }
 
 }

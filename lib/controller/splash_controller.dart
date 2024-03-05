@@ -3,13 +3,11 @@
 import 'dart:developer';
 
 import 'package:compatibility_app/routes/routes.dart';
-import 'package:compatibility_app/ui/settings/about_us_Screen.dart';
-import 'package:compatibility_app/ui/settings/call_screen.dart';
-import 'package:compatibility_app/ui/welcome_screen.dart';
 import 'package:compatibility_app/utils/app_helper.dart';
 import 'package:compatibility_app/utils/constants.dart';
 import 'package:compatibility_app/utils/preferences_manager.dart';
 import 'package:get/get.dart';
+import 'package:uuid/uuid.dart';
 
 class SplashController extends GetxController {
 
@@ -17,35 +15,28 @@ class SplashController extends GetxController {
 
   @override
   void onInit() {
-    // PreferencesManager.clearData(key: Const.KEY_LANGUAGE);
-
+    // PreferencesManager.saveAppData(key: Const.KEY_UUID, value: const Uuid().v4());
     WelcomScreen();
     AboutUsScreen();
     CallScreen();
-
-    // PreferencesManager.saveAppData(
-    //     key: Const.KEY_CURRENT_LATITUDE, value: 31.515905560531966);
-    // PreferencesManager.saveAppData(
-    //     key: Const.KEY_CURRENT_LONGITUD, value: 34.45147501378814);
-
     super.onInit();
   }
 
   Future WelcomScreen() {
-    // PreferencesManager.clearData(key: Const.KEY_LANGUAGE);
     // PreferencesManager.clearData(key: Const.KEY_BOARDING);
-    // log('TOKEN: ${AppHelper.getCurrentUserToken()}');
-    // log('TOKEN: ${PreferencesManager.getUserToken(key: Const.KEY_USER_TOKEN)}');
+    log('isBoarding: ${isBoarding}');
     if (isBoarding != null) {
       if (AppHelper.getCurrentUserToken() != null) {
         return Future.delayed(
             const Duration(seconds: 5), () => Get.offAndToNamed(Routes.home));
       } else {
         return Future.delayed(
+            // login
             const Duration(seconds: 5), () => Get.offAndToNamed(Routes.login));
       }
     } else {
       return Future.delayed(
+          // boarding
           const Duration(seconds: 5), () => Get.toNamed(Routes.boarding));
     }
   }

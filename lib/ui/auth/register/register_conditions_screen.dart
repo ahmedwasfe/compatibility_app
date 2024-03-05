@@ -1,4 +1,6 @@
 //شروط التسجيل
+import 'dart:developer';
+
 import 'package:compatibility_app/controller/register_controller.dart';
 import 'package:compatibility_app/routes/routes.dart';
 import 'package:compatibility_app/utils/app_color.dart';
@@ -10,8 +12,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_utils/get_utils.dart';
+
 class RegisterConditionsScreen extends StatelessWidget {
-RegisterController controller=Get.put(RegisterController());
+  RegisterController controller = Get.put(RegisterController());
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +25,15 @@ RegisterController controller=Get.put(RegisterController());
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading:IconButton(onPressed: (){
-          Navigator.pop(context);
-        },icon: Icon(Icons.arrow_back,color: AppColors.colorgreenl,),),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: AppColors.colorgreenl,
+          ),
+        ),
       ),
       body: Form(
         child: SingleChildScrollView(
@@ -57,7 +66,6 @@ RegisterController controller=Get.put(RegisterController());
                   width: double.infinity,
                 ),
               ),
-
               Container(
                 alignment: AlignmentDirectional.topStart,
                 margin: EdgeInsetsDirectional.only(
@@ -66,7 +74,7 @@ RegisterController controller=Get.put(RegisterController());
                 height: 130.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.r).r,
-                  color:AppColors.lightGray6,
+                  color: AppColors.lightGray6,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -74,7 +82,8 @@ RegisterController controller=Get.put(RegisterController());
                   children: [
                     Container(
                       alignment: AlignmentDirectional.center,
-                      padding: EdgeInsetsDirectional.only(top: 10.r,start:10 .r),
+                      padding:
+                          EdgeInsetsDirectional.only(top: 10.r, start: 10.r),
                       child: Row(
                         children: [
                           AppText.medium(
@@ -88,63 +97,69 @@ RegisterController controller=Get.put(RegisterController());
                         ],
                       ),
                     ),
-
-
-
-
                     Container(
                       alignment: AlignmentDirectional.topStart,
                       margin: EdgeInsets.only(top: 10.h),
+                      padding: EdgeInsetsDirectional.only(start: 12.r),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
-
                         children: [
-                          AppText.medium(text: 'clicking_create_account_agree',
+                          AppText.medium(
+                              text: 'clicking_create_account_agree',
                               fontSize: 13.sp,
                               fontWeight: FontWeight.w400,
                               color: AppColors.lightgray),
                           SizedBox(width: 2.w),
-                          InkWell(
-                            // onTap: =>,
-                            child: AppText.medium(text: 'terms_and_conditions',
+                          Expanded(
+                            child: InkWell(
+                              // onTap: =>,
+                              child: AppText.medium(
+                                text: 'terms_and_conditions',
                                 fontSize: 13.sp,
-                                fontWeight: FontWeight.w500, color: Colors.red,),
-
+                                fontWeight: FontWeight.w500,
+                                color: Colors.red,
+                              ),
+                            ),
                           ),
                         ],
                       ),
                     ),
-
-
-                    Container(
-                      padding: EdgeInsetsDirectional.only(top: 10.r,start:32 .r),
-                      alignment: AlignmentDirectional.topStart,
-                      child:InkWell(
-                        // onTap: =>,
-                        child: AppText.medium(text: 'terms_of_use',
+                    GestureDetector(
+                      child: Container(
+                        padding:
+                            EdgeInsetsDirectional.only(top: 10.r, start: 32.r),
+                        alignment: AlignmentDirectional.topStart,
+                        child: AppText.medium(
+                          text: 'terms_of_use',
                           fontSize: 13.sp,
-                          fontWeight: FontWeight.w500, color: Colors.red,),
-
+                          fontWeight: FontWeight.w500,
+                          color: Colors.red,
+                        ),
                       ),
+                      onTap: () {
+                        log('message');
+                        Get.toNamed(Routes.secretPolitics);
+                        // Navigator.push(context, MaterialPageRoute(builder: (_) => RegisterConditionsScreen()));
+                      },
                     ),
-
                   ],
                 ),
               ),
-
-
               Center(
                 child: Container(
                     margin: const EdgeInsets.only(bottom: 0),
-                    child: Obx(() => controller.isLoading.isTrue ? AppWidgets.CustomAnimationProgress() : Container())),
+                    child: Obx(() => controller.isLoading.isTrue
+                        ? AppWidgets.CustomAnimationProgress()
+                        : Container())),
               ),
               Container(
                   padding: EdgeInsetsDirectional.only(top: 120.r, bottom: 10),
                   alignment: Alignment.center,
                   child: AppWidgets.CustomButton(
                     text: 'create_account'.tr,
-                    click: () => controller.createAccount(),
+                    click: () => controller.showPromiseDialog(context),
+                    // click: ()=>Get.toNamed(Routes.home),
                     height: 47.h,
                     width: 220.w,
                     radius: 6.r,

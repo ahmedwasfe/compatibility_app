@@ -1,12 +1,16 @@
+import 'package:compatibility_app/controller/settings_controller.dart';
 import 'package:compatibility_app/utils/app_color.dart';
 import 'package:compatibility_app/utils/app_text.dart';
+import 'package:compatibility_app/utils/components.dart';
 import 'package:compatibility_app/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 //اسياسية السريه
 class secretPoliticsScreen extends StatelessWidget {
-  const secretPoliticsScreen({Key? key}) : super(key: key);
+SettingsController controller=Get.put(SettingsController());
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +25,10 @@ class secretPoliticsScreen extends StatelessWidget {
             fontWeight: FontWeight.w600,
             color: Colors.black),
         leading: IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back, color: Colors.black),
         ),
         actions: [
           Stack(
@@ -50,98 +56,81 @@ class secretPoliticsScreen extends StatelessWidget {
         ],
       ),
 
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
+      body: FutureBuilder(
+        future: controller.getAppSettings(),
+        builder: (context, snapshot){
+          if(snapshot.connectionState == ConnectionState.done){
+            if(controller.about != null){
+              return SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
 
-            Container(
-              margin: EdgeInsetsDirectional.only(start:16.r ,end:16.r ,top: 15.r,bottom: 20.r
-              ),
-              width: double.infinity,
-              height:650.h,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4.r),
-                color: AppColors.lightGray6,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: EdgeInsetsDirectional.only(start:12.r ,top: 10.r,
+                    Container(
+                      margin: EdgeInsetsDirectional.only(start:16.r ,end:16.r ,top: 15.r,bottom: 20.r
+                      ),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4.r),
+                        color: AppColors.lightGray6,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          //TODO Text
+                          Container(
+                            margin: EdgeInsetsDirectional.only(start: 16.r, top: 16),
+                            alignment: AlignmentDirectional.topStart,
+                            child: AppText.medium(text:'${controller.policy.title}',
+                                fontSize: 14,
+                                height: 1.4,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.colorpurple),
+                          ),
+                          Container(
+                            margin: EdgeInsets.all(10),
+                            child: Html(
+                              data: controller.policy.description,
+                              // tagsList: Html.tags..addAll(["bird", "flutter"]),
+                              style: {"p": Style(
+                                color: Colors.black,
+                                fontSize: FontSize(16),
+                                fontWeight: FontWeight.w500,
+                                textAlign: TextAlign.start,
+                                maxLines: 2,
+                                backgroundColor: Colors.white,)},
+                            ),
+                          ),
+
+
+                          SizedBox(height: 20.h,),
+                        ],
+                      ),
                     ),
-                    child: AppText.medium(text: 'types_collect',
-                      color:Colors.black,
-                      fontSize: 14.h,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-
-                  Container(
-                    margin: EdgeInsetsDirectional.only(start:12.r ,end:12.r ,top: 10.r,
-                    ),
-                    child: AppText.medium(text: 'نصصصصصص جاي من الابي اي  نصصصصصص جاي من الابي اي\nنصصصصصص جاي من الابي اي\nنصصصصصص جاي من الابي اي\nنصصصصصص جاي من الابي اي',
-                      color: AppColors.colorgreenl,
-                      fontSize: 14.h,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
 
 
-
-                  Container(
-                    margin: EdgeInsetsDirectional.only(start:12.r ,top: 120.r,
-                    ),
-                    child: AppText.medium(text: 'personal_data',
-                      color:Colors.black,
-                      fontSize: 14.h,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-
-                  Container(
-                    margin: EdgeInsetsDirectional.only(start:12.r ,end:12.r ,top: 10.r,
-                    ),
-                    child: AppText.medium(text: 'نصصصصصص جاي من الابي اي  نصصصصصص جاي من الابي اي\nنصصصصصص جاي من الابي اي\nنصصصصصص جاي من الابي اي\nنصصصصصص جاي من الابي اي',
-                      color: AppColors.colorgreenl,
-                      fontSize: 14.h,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-
-
-
-                  Container(
-                    margin: EdgeInsetsDirectional.only(start:12.r ,top: 120.r,
-                    ),
-                    child: AppText.medium(text: 'disclosure_personal_data',
-                      color:Colors.black,
-                      fontSize: 14.h,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-
-                  Container(
-                    margin: EdgeInsetsDirectional.only(start:12.r ,end:12.r ,top: 10.r,
-                    ),
-                    child: AppText.medium(text: 'نصصصصصص جاي من الابي اي  نصصصصصص جاي من الابي اي\nنصصصصصص جاي من الابي اي\nنصصصصصص جاي من الابي اي\nنصصصصصص جاي من الابي اي',
-                      color: AppColors.colorgreenl,
-                      fontSize: 14.h,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-
-
-
-
-          ],
-        ),
+                  ],
+                ),
+              );
+            }else{
+              return Container(
+                alignment: AlignmentDirectional.center,
+                child: Column(
+                  children: [
+                    AppText.medium(text: 'no_infromation'.tr,color: AppColors.colorpurple,)
+                  ],
+                ),
+              );
+            }
+          }else if(snapshot.connectionState == ConnectionState.waiting){
+            return AppWidgets.CustomAnimationProgress();
+          }else{
+            return Container();
+          }
+        },
       ),
     );
   }

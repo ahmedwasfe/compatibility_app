@@ -1,4 +1,8 @@
+import 'dart:developer';
+
 import 'package:compatibility_app/controller/home_page_controller.dart';
+import 'package:compatibility_app/controller/settings_controller.dart';
+import 'package:compatibility_app/model/home/slider_Item.dart';
 import 'package:compatibility_app/routes/routes.dart';
 import 'package:compatibility_app/utils/app_color.dart';
 import 'package:compatibility_app/utils/app_helper.dart';
@@ -16,8 +20,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log('UUID: ${AppHelper.getCurrentUser()!.uuid}');
     return Scaffold(
-      backgroundColor: Colors.white,
+      drawer: MyDrawer(),
       appBar: AppBar(
         toolbarHeight: 50,
         backgroundColor: Colors.transparent,
@@ -26,43 +31,35 @@ class HomePage extends StatelessWidget {
         title: SvgPicture.asset(
           '${Const.images}home_page.svg',
           fit: BoxFit.cover,
-          width: double.infinity,
-          height: double.infinity,
-        ),
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(
-            Icons.menu,
-            color: AppColors.colorgreenl,
-          ),
         ),
         actions: [
-          Container(
-            margin: EdgeInsetsDirectional.only(end: 8.r, top: 12.r),
-            child: Stack(
-              children: [
-                InkWell(
-                  onTap: () {},
-                  child: SvgPicture.asset(
-                    '${Const.images}notfiactions.svg',
-                    height: 25.h,
-                    width: 25.w,
-                  ),
-                ),
-                Container(
-                  alignment: AlignmentDirectional.center,
-                  width: 15.w,
-                  height: 15.h,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.r),
-                      color: AppColors.lightred
-                  ),
-                  child: AppText.medium(text: '8',color: Colors.white,fontSize: 10),
-                ),
-              ],
+          GestureDetector(
+            child: Container(
+              alignment: AlignmentDirectional.centerEnd,
+              margin: EdgeInsetsDirectional.only(end: 20.r),
+              child: Stack(
+                // alignment: AlignmentDirectional.topEnd,
+                children: [
+                  SvgPicture.asset(
+                      width: 28.w, height: 28.h, '${Const.images}notfiactions.svg'),
+                  Container(
+                    alignment: AlignmentDirectional.topCenter,
+                    margin: EdgeInsetsDirectional.only(top: 0.r, start: 13.0.r),
+                    width: 18.w,
+                    height: 18.h,
+                    decoration: BoxDecoration(
+                        color: Colors.redAccent,
+                        borderRadius: BorderRadiusDirectional.circular(50.r)),
+                    child: AppText.medium(
+                        text: '8',
+                        fontWeight: FontWeight.w300,
+                        fontSize: 10.sp,
+                        color: Colors.white),
+                  )
+                ],
+              ),
             ),
+            onTap: () => Get.toNamed(Routes.notifications),
           ),
         ],
       ),
@@ -72,7 +69,7 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            /*Container(
               margin:
                   EdgeInsetsDirectional.only(top: 8.r, start: 14.r, end: 14.r),
               child: TextFormField(
@@ -107,6 +104,7 @@ class HomePage extends StatelessWidget {
                           Icons.search_rounded,
                           color: AppColors.colorpurple,
                         )),
+                    suffixIcon: IconButton(onPressed: (){},icon: Icon(Icons.filter_list_rounded ),),
                     helperMaxLines: 2,
                     enabledBorder: OutlineInputBorder(
                       borderSide:
@@ -122,69 +120,99 @@ class HomePage extends StatelessWidget {
                       minWidth: 48.w,
                     )),
               ),
-            ),
+            ),*/
             Container(
               margin: EdgeInsetsDirectional.only(top: 30.r),
               alignment: AlignmentDirectional.center,
               child: AppText.larg(
                   text: 'aya'.tr, color: Colors.black, fontSize: 14.r),
             ),
-            Container(
-              // width: 343.w
-              // ,
-              // height: 152.h,
-              margin:
-                  const EdgeInsetsDirectional.only(start: 10, end: 10, top: 20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              clipBehavior: Clip.antiAlias,
-              child: ImageSlideshow(
-                width: double.infinity,
-                height: 200.h,
-                initialPage: 0,
-                indicatorColor: AppColors.colorpurple,
-                indicatorRadius: 5,
-                indicatorBackgroundColor: Colors.grey,
-                autoPlayInterval: 3000,
-                isLoop: true,
-                children: [
-                  // SvgPicture.asset('${Const.images}sing_up',
-                  // width: double.infinity,
-                  //   height: double.infinity,
-                  //   fit: BoxFit.cover,),
-                  Image.asset(
-                    '${Const.images}dlider_k.jpg',
-                    width: double.infinity,
-                    height: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-                  Image.asset(
-                    '${Const.images}dlider_k.jpg',
-                    width: double.infinity,
-                    height: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-                  Image.asset(
-                    '${Const.images}dlider_k.jpg',
-                    width: double.infinity,
-                    height: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-                  Image.asset(
-                    '${Const.images}dlider_k.jpg',
-                    width: double.infinity,
-                    height: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-                ],
-              ),
-            ),
-            Container(
+            // Container(
+            //   // width: 343.w
+            //   // ,
+            //   // height: 152.h,
+            //   margin:
+            //       const EdgeInsetsDirectional.only(start: 10, end: 10, top: 20),
+            //   decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.circular(10),
+            //   ),
+            //   clipBehavior: Clip.antiAlias,
+            //   child: ImageSlideshow(
+            //     width: double.infinity,
+            //     height: 200.h,
+            //     initialPage: 0,
+            //     indicatorColor: AppColors.colorpurple,
+            //     indicatorRadius: 5,
+            //     indicatorBackgroundColor: Colors.grey,
+            //     autoPlayInterval: 3000,
+            //     isLoop: true,
+            //     children: [
+            //       // SvgPicture.asset('${Const.images}sing_up',
+            //       // width: double.infinity,
+            //       //   height: double.infinity,
+            //       //   fit: BoxFit.cover,),
+            //       Image.asset(
+            //         '${Const.images}dlider_k.jpg',
+            //         width: double.infinity,
+            //         height: double.infinity,
+            //         fit: BoxFit.cover,
+            //       ),
+            //       Image.asset(
+            //         '${Const.images}dlider_k.jpg',
+            //         width: double.infinity,
+            //         height: double.infinity,
+            //         fit: BoxFit.cover,
+            //       ),
+            //       Image.asset(
+            //         '${Const.images}dlider_k.jpg',
+            //         width: double.infinity,
+            //         height: double.infinity,
+            //         fit: BoxFit.cover,
+            //       ),
+            //       Image.asset(
+            //         '${Const.images}dlider_k.jpg',
+            //         width: double.infinity,
+            //         height: double.infinity,
+            //         fit: BoxFit.cover,
+            //       ),
+            //     ],
+            //   ),
+            // ),
+           FutureBuilder(
+               future: controller.getSliders(),
+               builder: (_, snapshot) {
+                 if(snapshot.connectionState == ConnectionState.done){
+                   return  Container(
+                     clipBehavior: Clip.antiAlias,
+                     margin:
+                     EdgeInsetsDirectional.only(start: 10.r, end: 10.r, top: 30.r),
+                     decoration: BoxDecoration(
+                         borderRadius: BorderRadiusDirectional.circular(10.r)),
+                     child: ImageSlideshow(
+                       width: 360,
+                       height: 195,
+                       initialPage: 0,
+                       indicatorRadius: 5,
+                       indicatorColor: Colors.transparent,
+                       indicatorBackgroundColor: Colors.transparent,
+                       autoPlayInterval: 5000,
+                       isLoop: true,
+                       children: controller.listSliders
+                           .map((slider) => SliderItem(slider: slider))
+                           .toList(),
+                     ),
+                   );
+                 }else if(snapshot.connectionState == ConnectionState.waiting){
+                   return AppWidgets.CustomAnimationProgress();
+                 }else {
+                   return Container();
+                 }
+               }),
+           Container(
               margin:
                   EdgeInsetsDirectional.only(top: 16.r, end: 16.r, start: 16.r),
               width: double.infinity,
-              height: 200.h,
+             padding: EdgeInsetsDirectional.only(bottom: 12.r),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(6.r),
                   color: AppColors.lightGray6),
@@ -205,8 +233,9 @@ class HomePage extends StatelessWidget {
                       alignment: Alignment.center,
                       child: AppWidgets.CustomButton(
                         text: 'app_evaluation'.tr,
+                        isUpperCase: false,
                         click: () {
-                          AppHelper.showRatingapp(context);
+                          controller.showRatingApp(context);
                         },
                         height: 43.h,
                         width: 180.w,
@@ -215,11 +244,11 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
-            Container(
+           Container(
+             width: double.infinity,
               margin: EdgeInsetsDirectional.only(
                   top: 16.r, end: 16.r, start: 16.r, bottom: 20.r),
               padding: EdgeInsetsDirectional.only(bottom: 20.r),
-              width: double.infinity,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(6.r),
                   color: AppColors.lightGray6),
@@ -230,124 +259,115 @@ class HomePage extends StatelessWidget {
                       Container(
                         margin:
                             EdgeInsetsDirectional.only(start: 15.r, top: 10.r),
-                        child: const Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CircleAvatar(
-                              radius: 45,
-                              backgroundImage: AssetImage(
-                                '${Const.images}profial.jpg',
-                              ),
-                            ),
-                          ],
-                        ),
+                        child: CircleCachedImage(
+                            radius: 32,
+                            fit: BoxFit.scaleDown,
+                            imageUrl: AppHelper.getCurrentUser()!.customerAllowPhoto!.isNotEmpty ? AppHelper.getCurrentUser()!.customerAllowPhoto![0].imageUrl! : Const.defaultUserImage),
                       ),
-                      Container(
-                        margin:
-                            EdgeInsetsDirectional.only(start: 15.r, top: 10.r),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                AppText.medium(
-                                    text: 'name',
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600),
-                                SizedBox(
-                                  width: 4.w,
-                                ),
-                                AppText.medium(
-                                    text: 'خليل عماد هتهت',
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.lightGray8),
-                              ],
-                            ),
-                            Container(
-                              margin: EdgeInsetsDirectional.only(top: 11.r),
-                              child: Row(
+                      Expanded(
+                        child: Container(
+                          margin:
+                              EdgeInsetsDirectional.only(start: 15.r, top: 10.r),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   AppText.medium(
-                                      text: 'membership_number',
+                                      text: 'name',
                                       fontSize: 14,
                                       fontWeight: FontWeight.w600),
                                   SizedBox(
                                     width: 4.w,
                                   ),
                                   AppText.medium(
-                                      text: '05972',
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.lightred),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsetsDirectional.only(top: 11.r),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  AppText.medium(
-                                      text: 'email',
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600),
-                                  SizedBox(
-                                    width: 4.w,
-                                  ),
-                                  AppText.medium(
-                                      text: 'khalil@gmail.com',
+                                      text: AppHelper.getCurrentUser()!.fullName!,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w600,
                                       color: AppColors.lightGray8),
                                 ],
                               ),
-                            ),
-                            Container(
-                              margin: EdgeInsetsDirectional.only(top: 11.r),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  AppText.medium(
-                                      text: 'subscription_time',
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600),
-                                  SizedBox(
-                                    width: 4.w,
-                                  ),
-                                  AppText.medium(
-                                      text: 'منذ 12 ساعه',
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.lightplue),
-                                ],
+                              // Container(
+                              //   margin: EdgeInsetsDirectional.only(top: 11.r),
+                              //   child: Row(
+                              //     crossAxisAlignment: CrossAxisAlignment.start,
+                              //     mainAxisAlignment: MainAxisAlignment.start,
+                              //     children: [
+                              //       AppText.medium(
+                              //           text: 'membership_number',
+                              //           fontSize: 14,
+                              //           fontWeight: FontWeight.w600),
+                              //       SizedBox(
+                              //         width: 4.w,
+                              //       ),
+                              //       AppText.medium(
+                              //           text: '',
+                              //           fontSize: 14,
+                              //           fontWeight: FontWeight.w600,
+                              //           color: AppColors.lightred),
+                              //     ],
+                              //   ),
+                              // ),
+                              Container(
+                                margin: EdgeInsetsDirectional.only(top: 11.r),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+
+                                    AppText.medium(
+                                        text: AppHelper.getCurrentUser()!.email!,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                        color: AppColors.lightGray8),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                              Container(
+                                margin: EdgeInsetsDirectional.only(top: 11.r),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    AppText.medium(
+                                        text: 'country',
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600),
+                                    SizedBox(
+                                      width: 4.w,
+                                    ),
+                                    AppText.medium(
+                                        text: AppHelper.getCurrentUser()!.country!.name!,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                        color: AppColors.lightplue),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
                   ),
-                  Container(
+                  AppHelper.getCurrentUser()!.smsVerify == 0
+                      ? Container(
                       padding: EdgeInsetsDirectional.only(top: 40.r),
                       alignment: Alignment.center,
                       child: AppWidgets.CustomButton(
                         text: 'check_email'.tr,
+                        isUpperCase: false,
                         click: () {
                           Get.toNamed(Routes.check_email);
                         },
                         height: 47.h,
                         width: 250.w,
                         radius: 6.r,
-                      )),
+                      ))
+                      : Container(),
                 ],
               ),
             ),
@@ -356,4 +376,75 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
+  
 }
+
+class MyDrawer extends StatelessWidget {
+  const MyDrawer({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      backgroundColor: Colors.white,
+      child: Container(
+        margin: EdgeInsetsDirectional.only(top: 30.r),
+        child: ListView(
+          children: [
+            SvgPicture.asset('${Const.images}logo_com.svg',height: 50,width: 50,),
+
+            Container(
+              margin: EdgeInsetsDirectional.only(top: 30.r),
+              alignment: AlignmentDirectional.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  AppText.larg(text: 'خليل عماد هتهت',fontSize: 17),
+                  AppText.medium(text: 'khalil@gmail.com',fontSize: 13),
+                ],
+              ),
+            ),
+            SizedBox(height: 30.h,),
+            ListTile(
+              onTap: ()=>Get.toNamed(Routes.call),
+              title: AppText.medium(text: 'call_us'),
+              leading: SvgPicture.asset('${Const.icons}icon_call.svg'),
+            ),
+            ListTile(
+              onTap: ()=>  SettingsController.showShareDialog(context),
+              title: AppText.medium(text: 'share_app'),
+              leading: SvgPicture.asset('${Const.images}share.svg'),
+            ),
+            ListTile(
+              onTap: ()=> Get.toNamed(Routes.success_stories),
+              title: AppText.medium(text: 'success_stories'),
+              leading: SvgPicture.asset('${Const.images}success.svg'),
+            ),
+
+            ListTile(
+              onTap: ()=> Get.toNamed(Routes.tawafuq_blog),
+              title: AppText.medium(text: 'tawafuq_blog'),
+              leading: SvgPicture.asset('${Const.images}tawafuq_blog.svg'),
+            ),
+
+            ListTile(
+              onTap: ()=> Get.toNamed(Routes.tawafuq_blog),
+              title: AppText.medium(text: 'confidentiality_policy'),
+              leading: SvgPicture.asset('${Const.images}plosiy.svg'),
+            ),
+
+            ListTile(
+              onTap: ()=> Get.toNamed(Routes.about),
+              title: AppText.medium(text: 'about_us'),
+              leading: SvgPicture.asset('${Const.images}about.svg'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+

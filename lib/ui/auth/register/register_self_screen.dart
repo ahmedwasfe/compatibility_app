@@ -59,12 +59,11 @@ class RegisterSelfScreen extends StatelessWidget {
                   width: double.infinity,
                 ),
               ),
-
               Container(
                 margin: EdgeInsetsDirectional.only(
                     top: 36.r, start: 16.r, end: 16.r),
+                padding: EdgeInsetsDirectional.only(bottom: 20.r),
                 width: double.infinity,
-                height: 300.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.r).r,
                   color:AppColors.colorLine,
@@ -102,9 +101,10 @@ class RegisterSelfScreen extends StatelessWidget {
                               TextFormField(
                                 textInputAction: TextInputAction.go,
                                 controller: controller.talkDescriptionController,
-                                keyboardType: TextInputType.text,
+                                keyboardType: TextInputType.multiline,
                                 cursorColor: Colors.black,
                                 cursorWidth: 1.3.w,
+                                maxLines: 4,
                                 cursorRadius: const Radius.circular(10).r,
                                 enabled: true,
                                 textAlignVertical: AppHelper.getTextAlignVertical(),
@@ -165,8 +165,6 @@ class RegisterSelfScreen extends StatelessWidget {
                   ],
                 ),
               ),
-
-
               Center(
                 child: Container(
                     margin: const EdgeInsets.only(bottom: 0),
@@ -179,7 +177,7 @@ class RegisterSelfScreen extends StatelessWidget {
                     text: 'next'.tr,
                     click: () {
                       if(controller.isValidationSelfDescription(context)){
-                        Get.toNamed(Routes.register_Informations);
+                        Get.toNamed(Routes.registerConditions);
                       }
 
                     },

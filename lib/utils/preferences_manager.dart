@@ -44,7 +44,7 @@ class PreferencesManager extends GetxService{
     User user = User();
     String? userDataJson = _sharedPreferences.getString(key);
     if (userDataJson != null) {
-      // user = User.fromJson(jsonDecode(userDataJson));
+      user = User.fromJson(jsonDecode(userDataJson));
     }
     return user;
   }

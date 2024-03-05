@@ -40,6 +40,7 @@ class AppColors {
   static const lightBorder2 = Color(0xFFF5F5F5);
 
   //DARK THEME
+  static const colorAppMain = Color(0xFF75247B);
   static const colorpurple = Color(0xFF75247B);
   static const colorpurple2 = Color(0xFFd5bdd7);
   static const colorgreenl = Color(0xFF004852);
@@ -54,6 +55,7 @@ class AppColors {
   static const lightgreen2 = Color(0xFF33B469);
   static const lightplue2 = Color(0xFF315F90);
   static const lightgray = Color(0xFF424242);
+  static const lightgray87 = Color(0xFF757575);
   static const lightgray16 = Color(0xFF858585);
   static const lightgray6 = Color(0xFF828282);
   static const lightGray2 = Color(0xFFCACFD2);

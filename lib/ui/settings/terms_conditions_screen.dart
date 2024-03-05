@@ -23,7 +23,7 @@ class TermsConditionsScreen extends StatelessWidget {
             color: Colors.black),
         leading: IconButton(
           onPressed: () {},
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back, color: Colors.black),
         ),
         actions: [
           Stack(

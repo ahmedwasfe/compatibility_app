@@ -107,9 +107,10 @@ class WifesSpecificationScreen extends GetView<RegisterController> {
                               TextFormField(
                                 textInputAction: TextInputAction.go,
                                 controller: controller.descriptionController,
-                                keyboardType: TextInputType.text,
+                                keyboardType: TextInputType.multiline,
                                 cursorColor: Colors.black,
                                 cursorWidth: 1.3.w,
+                                maxLines: 5,
                                 cursorRadius: const Radius.circular(10).r,
                                 enabled: true,
                                 textAlignVertical:

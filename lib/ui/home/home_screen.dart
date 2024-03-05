@@ -1,34 +1,60 @@
 import 'dart:convert';
+import 'dart:developer';
 
+import 'package:compatibility_app/api/api_requestes.dart';
+import 'package:compatibility_app/api/firebase_api.dart';
 import 'package:compatibility_app/controller/home_controller.dart';
 import 'package:compatibility_app/utils/app_color.dart';
 import 'package:compatibility_app/utils/app_helper.dart';
 import 'package:compatibility_app/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hex_color/flutter_hex_color.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-import '../../controller/home_page_controller.dart';
 
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
 
-  final HomeController _controller = Get.put(HomeController());
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+
+    // TODO for updating user active status according to lifecycle events
+    // resume ==> active or online
+    // pause ==> inactive or offline
+    log('initState: ');
+    SystemChannels.lifecycle.setMessageHandler((message) {
+      log('initState: $message');
+      // AppHelper.showToast(message: message!);
+      if (message.toString().contains('resume')) {
+        ApiRequestes.updateActiveStatus(
+            userId: AppHelper.getCurrentUser()!.id!, status: 'online');
+        FirebaseAPIs.updateActiveStatus(true);
+      }
+
+      if (message.toString().contains('pause')) {
+        ApiRequestes.updateActiveStatus(
+            userId: AppHelper.getCurrentUser()!.id!, status: 'offline');
+        FirebaseAPIs.updateActiveStatus(false);
+      }
+      return Future.value(message);
+    });
+
+  }
 
   @override
   Widget build(BuildContext context) {
-    //
-    // print('TYPE: ${AppHelper.getUserType()}');
-    // print('TOKEN: ${AppHelper.getCurrentUserToken()}');
-    // if(AppHelper.getUserType() == Const.KEY_FAMILY) {
-    //   print('USER ${AppHelper.getUserType()}: ${jsonEncode(AppHelper.getCurrentParentUser())}');
-    // } else if(AppHelper.getUserType() == Const.KEY_HELPER) {
-    //   print('USER ${AppHelper.getUserType()}: ${jsonEncode(AppHelper.getCurrentOtherUser())}');
-    // } else if(AppHelper.getUserType() == Const.KEY_CHILD) {
-    //   print('USER ${AppHelper.getUserType()}: ${jsonEncode(AppHelper.getCurrentOtherUser())}');
-    // }
+
+    // log('TOKEN: ${jsonEncode(AppHelper.getCurrentUserToken())}');
+    // log('USER: ${jsonEncode(AppHelper.getCurrentUser())}');
 
     AppHelper.statusBarColor(isHome: true);
     return GetBuilder<HomeController>(builder: (controller) => Scaffold(
@@ -47,7 +73,7 @@ class HomeScreen extends StatelessWidget {
            selectedItemColor:Colors.black,
           currentIndex: controller.navIndex,
           items: _bottomNavigationBarItems(),
-          onTap: (navIndex) => controller?.getCurrenNavIndex(navIndex: navIndex),
+          onTap: (navIndex) => controller.getCurrenNavIndex(navIndex: navIndex),
         ),
       ),
     ));
@@ -66,18 +92,8 @@ class HomeScreen extends StatelessWidget {
     BottomNavigationBarItem(
         activeIcon: SvgPicture.asset('${Const.icons}chat_ou.svg', ),
         icon: SvgPicture.asset('${Const.icons}caht.svg'), label: 'chats'.tr),
+    BottomNavigationBarItem(
+        activeIcon:Icon(Icons.settings,color:AppColors.colorpurple),
+        icon: Icon(Icons.settings,color:AppColors.lightgray87), label: 'settings'.tr),
   ];
 }
-// home_d.svg
-// home.svg
-
-
-// bolg.svg
-// blog_out.svg
-
-
-// members.svg
-// members_out.svg
-
-// caht.svg
-// chat_ou.svg
